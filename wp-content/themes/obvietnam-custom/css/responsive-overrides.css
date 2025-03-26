@@ -1,0 +1,262 @@
+/* Tablet and Mobile Menu Styles */
+@media (max-width: 991px) {
+    .mobile-menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .main-navigation {
+        display: none;
+    }
+    
+    .mobile-navigation {
+        background-color: var(--site-white);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Hero section adjustments */
+    .hero-container {
+        flex-direction: column;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .hero-image {
+        text-align: center;
+    }
+    
+    /* Services grid adjustments */
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* About section adjustments */
+    .about-container {
+        flex-direction: column;
+    }
+    
+    .about-image {
+        order: 1;
+        margin-bottom: 2rem;
+    }
+    
+    .about-content {
+        order: 2;
+    }
+}
+
+/* Mobile Phone Styles */
+@media (max-width: 767px) {
+    .site-logo {
+        max-height: 35px;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-description {
+        font-size: 0.9rem;
+    }
+    
+    .hero-image img {
+        max-height: 250px;
+    }
+    
+    .section {
+        padding: 2.5rem 0;
+    }
+    
+    .section-heading {
+        font-size: 1.5rem;
+    }
+    
+    /* Services grid adjustments */
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Products grid adjustments */
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Supply chain grid adjustments */
+    .supply-chain-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Stats grid adjustments */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    /* Clients grid adjustments */
+    .clients-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Benefits grid adjustments */
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* News grid adjustments */
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Footer adjustments */
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Small Mobile Phones */
+@media (max-width: 575px) {
+    .site-container {
+        padding: 0 1rem;
+    }
+    
+    .site-logo {
+        max-height: 30px;
+    }
+    
+    .hero-title {
+        font-size: 1.5rem;
+    }
+    
+    .hero-description {
+        font-size: 0.875rem;
+    }
+    
+    .hero-image img {
+        max-height: 200px;
+    }
+    
+    .section {
+        padding: 2rem 0;
+    }
+    
+    .section-heading {
+        font-size: 1.25rem;
+    }
+    
+    .service-icon, .supply-chain-icon, .benefit-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .service-title, .supply-chain-title, .benefit-title, .news-title {
+        font-size: 1.1rem;
+    }
+    
+    .stat-number {
+        font-size: 1.75rem;
+    }
+    
+    .stat-text {
+        font-size: 0.8rem;
+    }
+    
+    .client-item {
+        height: 70px;
+        padding: 0.75rem;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+    
+    .chat-buttons {
+        bottom: 1rem;
+        right: 1rem;
+    }
+    
+    .chat-button {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .chat-tooltip {
+        display: none;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-width: 991px) and (orientation: landscape) {
+    .hero-section {
+        padding: 2rem 0;
+    }
+    
+    .hero-container {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .hero-content {
+        flex: 1;
+        text-align: left;
+        margin-bottom: 0;
+        margin-right: 2rem;
+    }
+    
+    .hero-image {
+        flex: 1;
+    }
+    
+    .hero-image img {
+        max-height: 250px;
+    }
+}
+
+/* High-resolution displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .site-logo img {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+    .btn:hover {
+        transform: none;
+    }
+    
+    .service-card:hover, .product-card:hover, .news-card:hover {
+        transform: none;
+    }
+    
+    .client-item:hover {
+        transform: none;
+    }
+}
+
+/* Animations for mobile */
+@media (max-width: 767px) {
+    .animate-fadeIn {
+        animation-duration: 0.5s;
+    }
+    
+    .hero-slide {
+        transition: opacity 0.3s ease;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
