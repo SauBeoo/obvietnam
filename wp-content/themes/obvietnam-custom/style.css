@@ -21,7 +21,8 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
     --site-yellow: #f2f0e9;
     --site-orange: #f5a538;
     --site-green: #10b981;
-    --site-gray-light: #f8f9fa;
+    --site-gray-light: #f2f0e9;
+    /*--site-gray-light: #f8f9fa;*/
     --site-gray: #6c757d;
     --site-gray-dark: #495057;
     --site-dark: #212529;
@@ -392,7 +393,7 @@ ul, ol {
 
 /* About Section */
 .about-section {
-    background-image: url("./assets/images/info_company.png");
+    background-image: url("./assets/images/info_company2.png");
     background-color: var(--site-gray-light);
     padding: 1rem 0;
 }
@@ -529,7 +530,7 @@ ul, ol {
 .supply-chain-icon {
     width: 80px;
     height: 80px;
-    background-color: var(--site-yellow);
+    background-color: var(--site-white);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -656,7 +657,7 @@ ul, ol {
 .benefit-icon {
     width: 60px;
     height: 60px;
-    background-color: var(--site-yellow);
+    background-color: var(--site-white);
     border-radius: 50%;
     display: flex;
     align-items: center;
