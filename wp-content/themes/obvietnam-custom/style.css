@@ -15,8 +15,8 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
 */
 
 :root {
-    --site-blue: #f5a538;
-    /*--site-blue: #3b5de7;*/
+    /*--site-blue: #f5a538;*/
+    --site-blue: #3b5de7;
     --site-purple: #6610f2;
     --site-yellow: #f2f0e9;
     --site-orange: #f5a538;
@@ -204,7 +204,7 @@ ul, ol {
 .hero-section {
     background: var(--site-gradient);
     background-image: url("./assets/images/banner.png");
-    color: var(--site-dark);
+    color: var(--site-blue);
     padding: 2rem 0;
     position: relative;
     overflow: hidden;
@@ -236,6 +236,7 @@ ul, ol {
     font-size: 1.125rem;
     margin-bottom: 2rem;
     opacity: 0.9;
+    color: var(--site-dark);
 }
 
 .hero-image {
@@ -358,7 +359,7 @@ ul, ol {
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
-    color: var(--site-orange);
+    color: var(--site-blue);
     font-size: 2rem;
 }
 
@@ -423,7 +424,7 @@ ul, ol {
     font-weight: 800;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
-    color: var(--site-dark);
+    color: var(--site-blue);
 }
 
 .about-description {
@@ -534,7 +535,7 @@ ul, ol {
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
-    color: var(--site-orange);
+    color: var(--site-blue);
     font-size: 2rem;
     box-shadow: var(--site-shadow);
 }
@@ -661,7 +662,7 @@ ul, ol {
     align-items: center;
     justify-content: center;
     margin-right: 1.5rem;
-    color: var(--site-orange);
+    color: var(--site-blue);
     font-size: 1.5rem;
     box-shadow: var(--site-shadow);
     flex-shrink: 0;
