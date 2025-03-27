@@ -204,9 +204,9 @@ ul, ol {
 /* Hero Section */
 .hero-section {
     background: var(--site-gradient);
-    background-image: url("./assets/images/banner.png");
+    background-image: url("./assets/images/2.png");
     color: var(--site-blue);
-    padding: 2rem 0;
+    padding: 4rem 0;
     position: relative;
     overflow: hidden;
 }
@@ -393,7 +393,7 @@ ul, ol {
 
 /* About Section */
 .about-section {
-    background-image: url("./assets/images/info_company2.png");
+    background-image: url("./assets/images/5.png");
     background-color: var(--site-gray-light);
     padding: 1rem 0;
 }
@@ -764,9 +764,9 @@ ul, ol {
 
 /* Contact Section */
 .contact-section {
-    background: var(--site-gradient);
-    color: var(--site-white);
-    padding: 4rem 0;
+    background-image: url("./assets/images/contact3.png");
+    color: var(--site-dark);
+    padding: 7rem 0;
     position: relative;
     overflow: hidden;
 }
@@ -774,9 +774,13 @@ ul, ol {
 .contact-container {
     position: relative;
     z-index: 2;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    border-radius: 15px;
 }
 
 .contact-title {
+    color: var(--site-blue);
     font-size: 2rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -843,8 +847,8 @@ textarea.form-control {
 
 /* Footer */
 .site-footer {
-    background-color: #1a1a2e;
-    color: var(--site-white);
+    background-color: var(--site-gray-light);
+    color: var(--site-dark);
     padding: 4rem 0 0;
 }
 
@@ -881,18 +885,18 @@ textarea.form-control {
 .footer-social-link {
     width: 36px;
     height: 36px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(235, 0, 0, 0.1);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--site-white);
+    color: var(--site-dark);
     transition: var(--site-transition);
 }
 
 .footer-social-link:hover {
     background-color: var(--site-blue);
-    color: var(--site-white);
+    color: var(--site-dark);
 }
 
 .footer-links {
@@ -902,7 +906,7 @@ textarea.form-control {
 .footer-heading {
     font-size: 1.25rem;
     margin-bottom: 1.5rem;
-    color: var(--site-white);
+    color: var(--site-blue);
     font-weight: 600;
 }
 
