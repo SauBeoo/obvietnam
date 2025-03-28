@@ -5,28 +5,57 @@
  */
 
 jQuery(document).ready(function($) {
-    // Mobile menu toggle
-    $('#mobile-menu-toggle').on('click', function() {
-        $('#mobile-navigation').slideToggle(300);
-    });
+    var $mobileNav = $('#mobile-navigation');
+    var $mobileOverlay = $('.mobile-menu-overlay');
+    var $body = $('body');
 
-    // Add dropdown toggle to menu items with children on mobile
-    $('.mobile-menu .menu-item-has-children > a').after('<span class="dropdown-toggle"><i class="fas fa-chevron-down"></i></span>');
-    
-    // Toggle submenu on mobile
-    $('.mobile-menu .dropdown-toggle').on('click', function(e) {
+    // Mở menu mobile
+    $('#mobile-menu-toggle').on('click', function(e) {
         e.preventDefault();
-        $(this).toggleClass('active');
-        $(this).next('.sub-menu').slideToggle(200);
-        $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up');
+        $mobileNav.addClass('is-active');
+        $mobileOverlay.addClass('is-active');
+        $body.addClass('no-scroll');
     });
 
-    // Close mobile menu when clicking outside
-    $(document).on('click', function(e) {
-        if (!$(e.target).closest('#mobile-navigation, #mobile-menu-toggle').length) {
-            $('#mobile-navigation').slideUp(300);
+    // Đóng menu mobile
+    $('.mobile-menu-close, .mobile-menu-overlay').on('click', function(e) {
+        e.preventDefault();
+        $mobileNav.removeClass('is-active');
+        $mobileOverlay.removeClass('is-active');
+        $body.removeClass('no-scroll');
+    });
+
+    // Ngăn chặn đóng menu khi click vào chính menu
+    $mobileNav.on('click', function(e) {
+        e.stopPropagation();
+    });
+
+    // Đóng menu khi nhấn phím ESC
+    $(document).on('keyup', function(e) {
+        if (e.keyCode === 27) { // ESC key
+            $mobileNav.removeClass('is-active');
+            $mobileOverlay.removeClass('is-active');
+            $body.removeClass('no-scroll');
         }
     });
+    //
+    // // Add dropdown toggle to menu items with children on mobile
+    // $('.mobile-menu .menu-item-has-children > a').after('<span class="dropdown-toggle"><i class="fas fa-chevron-down"></i></span>');
+    //
+    // // Toggle submenu on mobile
+    // $('.mobile-menu .dropdown-toggle').on('click', function(e) {
+    //     e.preventDefault();
+    //     $(this).toggleClass('active');
+    //     $(this).next('.sub-menu').slideToggle(200);
+    //     $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up');
+    // });
+    //
+    // // Close mobile menu when clicking outside
+    // $(document).on('click', function(e) {
+    //     if (!$(e.target).closest('#mobile-navigation, #mobile-menu-toggle').length) {
+    //         $('#mobile-navigation').slideUp(300);
+    //     }
+    // });
 
     // Handle window resize
     $(window).on('resize', function() {
