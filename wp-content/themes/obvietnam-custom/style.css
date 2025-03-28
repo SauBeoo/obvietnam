@@ -275,12 +275,12 @@ ul, ol {
 }
 
 .btn-primary {
-    background-color: var(--site-white);
-    color: var(--site-blue);
+    background-color: var(--site-blue);
+    color: var(--site-white);
 }
 
 .btn-primary:hover {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(59, 93, 231, 0.9);
     color: var(--site-purple);
 }
 
