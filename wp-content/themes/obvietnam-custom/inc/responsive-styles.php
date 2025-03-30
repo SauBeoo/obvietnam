@@ -110,6 +110,6 @@ add_filter('get_header_image_tag', 'obvietnam_custom_responsive_header_image', 1
  */
 function obvietnam_custom_responsive_styles() {
     wp_enqueue_style('obvietnam-custom-responsive', get_template_directory_uri() . '/css/responsive.css', array(), _S_VERSION);
-    wp_enqueue_style('obvietnam-custom-mobile', get_template_directory_uri() . '/css/mobile.css', array(), _S_VERSION);
+    // wp_enqueue_style('obvietnam-custom-mobile', get_template_directory_uri() . '/css/mobile.css', array(), _S_VERSION);
 }
 add_action('wp_enqueue_scripts', 'obvietnam_custom_responsive_styles');
