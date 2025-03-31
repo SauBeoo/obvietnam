@@ -36,7 +36,7 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
 /* Reset & Base Styles */
 * {
     margin: 0;
-    padding: 0;
+    /*padding: 0;*/
     box-sizing: border-box;
 }
 
@@ -1366,4 +1366,10 @@ a img.aligncenter {
 .mobile-search input[type="search"] {
     width: 100%;
     padding: 10px;
+}
+.space-y-6{
+    padding-top: calc(var(--spacing)* 8);
+}
+.color-title{
+    color: var(--site-blue);
 }

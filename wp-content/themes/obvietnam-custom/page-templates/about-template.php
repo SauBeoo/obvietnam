@@ -12,8 +12,8 @@ get_header();
     <main id="primary" class="site-main">
         <div class="site-container py-16 lg:py-20">
             <!-- Hero Section -->
-            <header class="page-header mb-12 lg:mb-20 text-center space-y-6">
-                <h1 class="text-4xl md:text-5xl font-bold text-slate-800 tracking-tight animate-fade-in-up">
+            <header class="page-header mb-12 lg:mb-20 text-center p-6">
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-800 tracking-tight animate-fade-in-up color-title" style="margin-bottom: 0px">
                     <?php the_title(); ?>
                 </h1>
                 <?php if (has_excerpt()) : ?>
@@ -21,7 +21,7 @@ get_header();
                         <?php the_excerpt(); ?>
                     </div>
                 <?php endif; ?>
-                <div class="h-1 w-24 bg-emerald-500 mx-auto rounded-full opacity-80"></div>
+                <div class="h-1 w-24 bg-black mx-auto rounded-full opacity-80"></div>
             </header>
 
             <!-- About Section -->
@@ -43,41 +43,40 @@ get_header();
                         </div>
                     <?php endif; ?>
                 </div>
-                <div class="prose max-w-none lg:pl-12">
-                    <h2 class="text-3xl font-bold text-slate-800 mb-6">Hành Trình 10 Năm Phát Triển</h2>
+                <div class="prose max-w-none">
+                    <h2 class="text-3xl font-bold text-slate-800 mb-6 color-title">Hành Trình 10 Năm Phát Triển</h2>
                     <p class="text-lg text-gray-600 leading-relaxed mb-6">
                         Từ những bước đi đầu tiên trong lĩnh vực logistics đến vị thế dẫn đầu ngành hiện nay,
                         chúng tôi luôn không ngừng đổi mới và cam kết mang lại giải pháp tối ưu cho khách hàng.
                     </p>
-                    <ul class="space-y-3 text-gray-600">
+                    <ul class="text-gray-600" style="margin: 0">
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-emerald-500 mr-3"></i>
+                            <i class="fas fa-check-circle text-emerald-500 mr-3 pe-2"></i>
                             Đội ngũ chuyên gia giàu kinh nghiệm
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-emerald-500 mr-3"></i>
+                            <i class="fas fa-check-circle text-emerald-500 mr-3 pe-2"></i>
                             Hệ thống công nghệ hiện đại
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-emerald-500 mr-3"></i>
+                            <i class="fas fa-check-circle text-emerald-500 mr-3 pe-2"></i>
                             Mạng lưới đối tác toàn cầu
                         </li>
                     </ul>
                 </div>
-                <div class="prose lg:prose-lg max-w-none lg:pl-12">
-                    <div class="space-y-6 text-slate-700">
-                        <?php the_content(); ?>
-                    </div>
+            </div>
+            <div class="prose lg:prose-lg max-w-none section">
+                <div class="text-slate-700">
+                    <?php the_content(); ?>
                 </div>
             </div>
-
             <!-- Core Values -->
             <section class="mb-20 lg:mb-28">
                 <h2 class="text-3xl lg:text-4xl font-bold text-center text-slate-800 mb-14 lg:mb-20">
-                    <span class="border-b-4 border-emerald-500 pb-2"><?php esc_html_e('Giá trị cốt lõi', 'obvietnam-custom'); ?></span>
+                    <span class="pb-2 color-title"><?php esc_html_e('Giá trị cốt lõi', 'obvietnam-custom'); ?></span>
                 </h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 pt-6">
                     <?php
                     $values = [
                         [
@@ -98,11 +97,11 @@ get_header();
                     ];
 
                     foreach ($values as $value) : ?>
-                        <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                        <div class="bg-white p-8 rounded-2xl shadow-lg inset-shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
                             <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
                                 <i class="fas fa-<?php echo $value['icon']; ?> text-3xl text-white"></i>
                             </div>
-                            <h3 class="text-2xl font-bold text-slate-800 text-center mb-4"><?php echo esc_html($value['title']); ?></h3>
+                            <h3 class="text-2xl font-bold text-slate-800 text-center mb-2 pt-2"><?php echo esc_html($value['title']); ?></h3>
                             <p class="text-gray-600 text-center leading-relaxed"><?php echo esc_html($value['content']); ?></p>
                         </div>
                     <?php endforeach; ?>
@@ -110,16 +109,16 @@ get_header();
             </section>
 
             <!-- Team Section -->
-            <section class="mb-20 lg:mb-28">
+            <section class="mb-20 lg:mb-28 section">
                 <h2 class="text-3xl lg:text-4xl font-bold text-center text-slate-800 mb-14 lg:mb-20">
-                    <span class="border-b-4 border-emerald-500 pb-2"><?php esc_html_e('Đội ngũ của chúng tôi', 'obvietnam-custom'); ?></span>
+                    <span class="pb-2 color-title"><?php esc_html_e('Đội ngũ của chúng tôi', 'obvietnam-custom'); ?></span>
                 </h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 pt-6">
                     <?php if (function_exists('get_field') && get_field('team_members')) :
                         while (have_rows('team_members')) : the_row(); ?>
                             <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                                <div class="relative h-72 bg-gray-100 overflow-hidden">
+                                <div class="relative h-50 bg-gray-100 overflow-hidden">
                                     <?php if ($photo = get_sub_field('photo')) : ?>
                                         <img src="<?php echo esc_url($photo); ?>" alt="<?php echo esc_attr(get_sub_field('name')); ?>"
                                              class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105">
@@ -132,7 +131,7 @@ get_header();
 
                                 <div class="p-6 text-center space-y-3">
                                     <h3 class="text-xl font-bold text-slate-800"><?php the_sub_field('name'); ?></h3>
-                                    <p class="text-emerald-500 font-medium"><?php the_sub_field('position'); ?></p>
+                                    <p class="color-title font-medium"><?php the_sub_field('position'); ?></p>
                                     <?php if ($description = get_sub_field('description')) : ?>
                                         <p class="text-sm text-gray-600"><?php echo esc_html($description); ?></p>
                                     <?php endif; ?>
@@ -144,10 +143,10 @@ get_header();
                                                 $url = get_sub_field('url');
                                                 if ($url) : ?>
                                                     <a href="<?php echo esc_url($url); ?>"
-                                                       class="text-slate-600 hover:text-emerald-500 transition-colors"
+                                                       class="text-slate-600 hover:text-emerald-500 transition-colors px-2"
                                                        target="_blank"
                                                        aria-label="<?php echo esc_attr($platform); ?>">
-                                                        <i class="fab fa-<?php echo esc_attr($platform); ?> text-lg"></i>
+                                                        <i class="fab fa-<?php echo esc_attr($platform); ?> text-2xl"></i>
                                                     </a>
                                                 <?php endif;
                                             endwhile; ?>
@@ -177,19 +176,19 @@ get_header();
                         );
                         foreach ($placeholder_members as $member) : ?>
                             <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                                <div class="relative h-72 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+                                <div class="relative h-50 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
                                     <div class="absolute inset-0 flex items-center justify-center">
                                         <i class="fas fa-user text-5xl text-gray-400/80"></i>
                                     </div>
                                 </div>
 
-                                <div class="p-6 text-center space-y-3">
+                                <div class="p-4 text-center space-y-3">
                                     <h3 class="text-xl font-bold text-slate-800"><?php echo esc_html($member['name']); ?></h3>
-                                    <p class="text-emerald-500 font-medium"><?php echo esc_html($member['position']); ?></p>
+                                    <p class="color-title font-medium "><?php echo esc_html($member['position']); ?></p>
                                     <div class="flex justify-center space-x-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                         <?php foreach (['linkedin', 'twitter', 'facebook'] as $platform) : ?>
-                                            <a href="#" class="text-slate-600 hover:text-emerald-500 transition-colors">
-                                                <i class="fab fa-<?php echo $platform; ?> text-lg"></i>
+                                            <a href="#" class="text-slate-600 hover:text-emerald-500 transition-colors px-2">
+                                                <i class="fab fa-<?php echo $platform; ?> text-2xl"></i>
                                             </a>
                                         <?php endforeach; ?>
                                     </div>
@@ -199,8 +198,13 @@ get_header();
                     endif; ?>
                 </div>
             </section>
-
         </div>
+        <?php
+            // Stats Section
+            get_template_part('template-parts/content', 'stats');
+            // Clients Section
+            get_template_part('template-parts/content', 'clients');
+        ?>
     </main>
 
 <?php
