@@ -12,7 +12,7 @@ get_header();
     <main id="primary" class="site-main">
         <div class="site-container py-16 lg:py-20">
             <!-- Hero Section -->
-            <header class="page-header mb-12 lg:mb-20 text-center p-6">
+            <header class="page-header mb-12  text-center p-6">
                 <h1 class="text-4xl md:text-5xl font-bold text-slate-800 tracking-tight animate-fade-in-up color-title" style="margin-bottom: 0px">
                     <?php the_title(); ?>
                 </h1>
@@ -25,7 +25,7 @@ get_header();
             </header>
 
             <!-- About Section -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-16 items-center mb-20 lg:mb-28">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-16 items-center">
                 <div class="relative group">
                     <?php if (has_post_thumbnail()) : ?>
                         <div class="post-thumbnail rounded-2xl overflow-hidden shadow-xl transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
@@ -71,8 +71,8 @@ get_header();
                 </div>
             </div>
             <!-- Core Values -->
-            <section class="mb-20 lg:mb-28">
-                <h2 class="text-3xl lg:text-4xl font-bold text-center text-slate-800 mb-14 lg:mb-20">
+            <section >
+                <h2 class="text-3xl lg:text-4xl font-bold text-center text-slate-800 mb-14 ">
                     <span class="pb-2 color-title"><?php esc_html_e('Giá trị cốt lõi', 'obvietnam-custom'); ?></span>
                 </h2>
 
@@ -109,8 +109,8 @@ get_header();
             </section>
 
             <!-- Team Section -->
-            <section class="mb-20 lg:mb-28 section">
-                <h2 class="text-3xl lg:text-4xl font-bold text-center text-slate-800 mb-14 lg:mb-20">
+            <section class="section">
+                <h2 class="text-3xl lg:text-4xl font-bold text-center text-slate-800 mb-14 ">
                     <span class="pb-2 color-title"><?php esc_html_e('Đội ngũ của chúng tôi', 'obvietnam-custom'); ?></span>
                 </h2>
 

@@ -655,6 +655,31 @@ function obvietnam_custom_save_meta_box_data( $post_id ) {
 }
 add_action( 'save_post', 'obvietnam_custom_save_meta_box_data' );
 
+function inline_styles()
+{
+
+    $stylesheets = [
+        'contact' => get_template_directory_uri() . '/css/contact.css',
+    ];
+    foreach ($stylesheets as $key => $value) {
+        $styles_css_content = file_get_contents($value);
+        $compressed_css_content = compress_css($styles_css_content);
+        echo '<style id="global-styles-inline-css-' . $key . '"> ' . $compressed_css_content . '</style>';
+    }
+}
+
+add_action('wp_head', 'inline_styles');
+
+function compress_css($css)
+{
+    // Remove comments
+    $css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
+
+    // Remove whitespace
+    $css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $css);
+
+    return $css;
+}
 /**
  * Include template functions
  */
