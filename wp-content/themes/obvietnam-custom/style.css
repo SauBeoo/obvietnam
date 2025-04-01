@@ -467,6 +467,7 @@ ul, ol {
     box-shadow: var(--site-shadow);
     overflow: hidden;
     transition: var(--site-transition);
+    border: 1px solid #dddddd;
 }
 
 .product-card:hover {
@@ -476,27 +477,28 @@ ul, ol {
 
 .product-image {
     height: 200px;
-    background: var(--site-gradient);
+    /*background: var(--site-gradient);*/
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    padding: 10px;
 }
 
 .product-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .product-content {
-    padding: 1.5rem;
+    padding: 1rem;
 }
 
 .product-title {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     margin-bottom: 0.5rem;
-    color: var(--site-blue);
+    color: var(--site-dark);
 }
 
 .product-description {
