@@ -1,38 +1,27 @@
 <?php
-/*
-Template Name: Product Page
-*/
+/**
+ * The template for displaying archive product posts
+ *
+ * @package OB_Vietnam_Custom
+ */
+
 get_header();
 ?>
 
     <div class="container mx-auto px-4 py-8 flex flex-wrap md:flex-nowrap gap-8">
         <!-- Sidebar Danh mục -->
-        <div class="w-full md:w-1/4 bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">Danh mục</h2>
-            <ul class="space-y-2">
-                <?php
-                $terms = get_terms([
-                    'taxonomy' => 'product_category',
-                    'hide_empty' => false,
-                ]);
+        <div class="w-full md:w-1/4 bg-gray-100 p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Danh mục sản phẩm</h2>
+            <?php
+            $active_slug = isset($_GET['product_category']) ? sanitize_text_field($_GET['product_category']) : '';
 
-                foreach ($terms as $term) {
-                    $active_class = (isset($_GET['product_category']) && $_GET['product_category'] == $term->slug) ? 'bg-blue-500 text-white' : 'hover:bg-gray-100';
-                    echo sprintf(
-                        '<li><a href="?product_category=%s" class="block px-4 py-2 rounded %s transition-colors">%s</a></li>',
-                        esc_attr($term->slug),
-                        $active_class,
-                        esc_html($term->name)
-                    );
-                }
-                ?>
-            </ul>
+            display_category_tree(0, 'product_category', $active_slug);
+            ?>
         </div>
-
         <!-- Main Content -->
         <div class="w-full md:w-3/4">
             <!-- Sorting -->
-            <div class="mb-6 flex justify-between items-center bg-white p-4 rounded-lg shadow-md">
+            <div class="mb-6 flex justify-between items-center bg-gray-100 p-4 rounded-lg shadow-md">
                 <div class="text-gray-600">
                     <?php
                     $current_page = max(1, get_query_var('paged'));
@@ -60,7 +49,7 @@ get_header();
             $paged = get_query_var('paged') ? get_query_var('paged') : 1;
             $args = [
                 'post_type' => 'products',
-                'posts_per_page' => 16,
+                'posts_per_page' => 1,
                 'paged' => $paged,
                 'orderby' => 'date',
                 'order' => $current_order,
@@ -82,14 +71,14 @@ get_header();
                 ?>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <?php while ($products->have_posts()) : $products->the_post(); ?>
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                        <div class="bg-white p-4 shadow-lg inset-shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
                             <a href="<?php the_permalink(); ?>">
-                                <?php if (has_post_thumbnail()) : ?>
-                                    <img class="w-full h-48 object-cover" src="<?= esc_url(get_the_post_thumbnail_url()) ?>" alt="<?php the_title(); ?>">
-                                <?php endif; ?>
-                                <div class="p-4">
-                                    <p class="font-semibold text-lg mb-2 text-gray-800"><?php the_title(); ?></p>
+                                <div class="bg-gradient-to-br from-emerald-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                    <?php if (has_post_thumbnail()) : ?>
+                                        <img class="w-full h-48 object-cover" src="<?= esc_url(get_the_post_thumbnail_url()) ?>" alt="<?php the_title(); ?>">
+                                    <?php endif; ?>
                                 </div>
+                                <p class="text-base mb-2 text-gray-800 text-center"><?php the_title(); ?></p>
                             </a>
                         </div>
                     <?php endwhile; ?>
@@ -103,8 +92,8 @@ get_header();
                         'format' => '?paged=%#%',
                         'current' => max(1, $paged),
                         'total' => $products->max_num_pages,
-                        'prev_text' => __('« Trước'),
-                        'next_text' => __('Tiếp theo »'),
+                        'prev_text' => __('«'),
+                        'next_text' => __('»'),
                         'type' => 'list',
                         'add_args' => isset($_GET['product_category']) ? ['product_category' => $_GET['product_category']] : [],
                     ]);

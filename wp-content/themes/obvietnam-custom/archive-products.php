@@ -1,78 +1,105 @@
 <?php
-/**
- * The template for displaying archive pages for products
- *
- * @package OB_Vietnam_Custom
- */
-
+/*
+Template Name: Product Page
+*/
 get_header();
 ?>
 
-<main id="primary" class="site-main">
-    <div class="site-container py-12">
-        <header class="page-header mb-8 text-center">
-            <h1 class="section-heading">
-                <?php post_type_archive_title(); ?>
-            </h1>
-            <div class="archive-description max-w-3xl mx-auto">
-                <p><?php echo esc_html__('Chúng tôi cung cấp đa dạng các sản phẩm chất lượng cao, đáp ứng mọi nhu cầu của khách hàng.', 'obvietnam-custom'); ?></p>
-            </div>
-        </header>
+    <div class="container mx-auto px-4 py-8 flex flex-wrap md:flex-nowrap gap-8">
+        <!-- Sidebar Danh mục -->
+        <div class="w-full md:w-1/4 bg-gray-100 p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Danh mục sản phẩm</h2>
+            <?php
+            $active_slug = isset($_GET['product_category']) ? sanitize_text_field($_GET['product_category']) : '';
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <?php
-            if (have_posts()) :
-                while (have_posts()) : the_post();
-            ?>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:-translate-y-1">
-                    <?php if (has_post_thumbnail()) : ?>
-                        <a href="<?php the_permalink(); ?>" class="block">
-                            <?php the_post_thumbnail('product-thumbnail', ['class' => 'w-full h-48 object-cover']); ?>
-                        </a>
-                    <?php else : ?>
-                        <div class="bg-site-gray-light h-48 flex items-center justify-center">
-                            <i class="fas fa-box text-4xl text-site-gray-dark"></i>
-                        </div>
-                    <?php endif; ?>
-                    
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">
-                            <a href="<?php the_permalink(); ?>" class="text-site-blue hover:text-site-blue-dark">
-                                <?php the_title(); ?>
-                            </a>
-                        </h3>
-                        <div class="text-sm text-gray-700 mb-3">
-                            <?php the_excerpt(); ?>
-                        </div>
-                        <a href="<?php the_permalink(); ?>" class="text-site-blue hover:text-site-blue-dark font-medium inline-flex items-center text-sm">
-                            <?php esc_html_e('Xem chi tiết', 'obvietnam-custom'); ?>
-                            <i class="fas fa-arrow-right ml-1"></i>
-                        </a>
-                    </div>
-                </div>
-            <?php
-                endwhile;
-            else :
-                echo '<div class="col-span-4 text-center py-8">';
-                echo '<p>' . esc_html__('Không tìm thấy sản phẩm nào.', 'obvietnam-custom') . '</p>';
-                echo '</div>';
-            endif;
+            display_category_tree(0, 'product_category', $active_slug);
             ?>
         </div>
+        <!-- Main Content -->
+        <div class="w-full md:w-3/4">
+            <!-- Sorting -->
+            <div class="mb-6 flex justify-between items-center bg-gray-100 p-4 rounded-lg shadow-md">
+                <div class="text-gray-600">
+                    <?php
+                    $current_page = max(1, get_query_var('paged'));
+                    $per_page = 16;
+                    $total = $wp_query->found_posts;
+                    printf('Hiển thị %d - %d của %d sản phẩm',
+                        ($current_page - 1) * $per_page + 1,
+                        min($current_page * $per_page, $total),
+                        $total
+                    );
+                    ?>
+                </div>
+                <select id="sort" class="border rounded px-4 py-2" onchange="window.location.href=this.value">
+                    <?php
+                    $current_order = isset($_GET['order']) ? $_GET['order'] : 'desc';
+                    $base_url = add_query_arg(array());
+                    ?>
+                    <option value="<?= add_query_arg('order', 'desc', $base_url) ?>" <?= selected($current_order, 'desc') ?>>Mới nhất</option>
+                    <option value="<?= add_query_arg('order', 'asc', $base_url) ?>" <?= selected($current_order, 'asc') ?>>Cũ nhất</option>
+                </select>
+            </div>
 
-        <div class="pagination mt-8 flex justify-center">
+            <!-- Product Grid -->
             <?php
-            the_posts_pagination(
-                array(
-                    'mid_size'  => 2,
-                    'prev_text' => '<i class="fas fa-chevron-left"></i> ' . esc_html__('Trước', 'obvietnam-custom'),
-                    'next_text' => esc_html__('Sau', 'obvietnam-custom') . ' <i class="fas fa-chevron-right"></i>',
-                )
-            );
-            ?>
+            $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+            $args = [
+                'post_type' => 'products',
+                'posts_per_page' => 1,
+                'paged' => $paged,
+                'orderby' => 'date',
+                'order' => $current_order,
+            ];
+
+            if (isset($_GET['product_category'])) {
+                $args['tax_query'] = [
+                    [
+                        'taxonomy' => 'product_category',
+                        'field' => 'slug',
+                        'terms' => sanitize_text_field($_GET['product_category']),
+                    ]
+                ];
+            }
+
+            $products = new WP_Query($args);
+
+            if ($products->have_posts()) :
+                ?>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <?php while ($products->have_posts()) : $products->the_post(); ?>
+                        <div class="bg-white p-4 shadow-lg inset-shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                            <a href="<?php the_permalink(); ?>">
+                                <div class="bg-gradient-to-br from-emerald-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                    <?php if (has_post_thumbnail()) : ?>
+                                        <img class="w-full h-48 object-cover" src="<?= esc_url(get_the_post_thumbnail_url()) ?>" alt="<?php the_title(); ?>">
+                                    <?php endif; ?>
+                                </div>
+                                <p class="text-base mb-2 text-gray-800 text-center"><?php the_title(); ?></p>
+                            </a>
+                        </div>
+                    <?php endwhile; ?>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-8 flex justify-center">
+                    <?php
+                    echo paginate_links([
+                        'base' => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
+                        'format' => '?paged=%#%',
+                        'current' => max(1, $paged),
+                        'total' => $products->max_num_pages,
+                        'prev_text' => __('«'),
+                        'next_text' => __('»'),
+                        'type' => 'list',
+                        'add_args' => isset($_GET['product_category']) ? ['product_category' => $_GET['product_category']] : [],
+                    ]);
+                    ?>
+                </div>
+            <?php else : ?>
+                <div class="text-center py-12 text-gray-500">Không có sản phẩm nào</div>
+            <?php endif; wp_reset_postdata(); ?>
         </div>
     </div>
-</main>
 
-<?php
-get_footer();
+<?php get_footer(); ?>

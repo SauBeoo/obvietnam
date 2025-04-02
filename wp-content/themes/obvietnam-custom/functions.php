@@ -776,6 +776,86 @@ function compress_css($css)
 
     return $css;
 }
+
+/**
+ * Hàm hiển thị cây danh mục sản phẩm theo dạng đệ quy.
+ *
+ * @param int    $parent_id    ID của danh mục cha (mặc định là 0).
+ * @param string $taxonomy     Tên taxonomy, ví dụ 'product_category'.
+ * @param string $active_slug  Slug của danh mục đang được chọn (active).
+ * @param int    $level        Mức độ lồng nhau (0 là cấp cao nhất).
+ *
+ * @return bool  Trả về true nếu trong nhánh này có danh mục đang active, false nếu không.
+ */
+function display_category_tree($parent_id = 0, $taxonomy = 'product_category', $active_slug = '', $level = 0) {
+    $terms = get_terms([
+        'taxonomy'   => $taxonomy,
+        'hide_empty' => false,
+        'parent'     => $parent_id
+    ]);
+
+    if (empty($terms) || is_wp_error($terms)) {
+        return false;
+    }
+
+    // Nếu là danh mục con (level > 0) thì thụt vào 20px (ml-5)
+    $ul_class = 'space-y-1';
+    if ($level > 0) {
+        $ul_class .= ' ml-3';
+    }
+
+    $branch_active = false;
+
+    echo '<ul class="' . $ul_class . '">';
+    foreach ($terms as $term) {
+        // Kiểm tra nếu danh mục hiện tại đang active.
+        $is_current_active = ($active_slug === $term->slug);
+
+        // Gọi đệ quy để lấy danh mục con.
+        ob_start();
+        $child_active = display_category_tree($term->term_id, $taxonomy, $active_slug, $level + 1);
+        $child_html = ob_get_clean();
+
+        // Nếu danh mục hiện tại hoặc bất kỳ danh mục con nào đang active thì mặc định mở.
+        $is_open = ($is_current_active || $child_active) ? 'true' : 'false';
+
+        // Thiết lập class active cho danh mục hiện tại.
+        $active_class = $is_current_active ? 'bg-blue-100 text-blue-600' : 'text-gray-700 hover:bg-gray-50';
+        ?>
+        <li x-data="{ isOpen: <?= $is_open ?> }" class="relative">
+            <div class="flex items-center justify-between <?= $active_class ?> rounded-md px-3 py-2 transition-colors"  @click="isOpen = !isOpen">
+                <div>
+                    <a href="?product_category=<?= esc_attr($term->slug) ?>" class="flex-1" @click.stop>
+                        <?= esc_html($term->name) ?>
+                    </a>
+                </div>
+                <?php if (!empty($child_html)) : ?>
+                    <button class="p-1 hover:bg-gray-200 rounded-full ml-2">
+                        <svg class="w-4 h-4 transform transition-transform" :class="{ 'rotate-90': isOpen }"
+                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                <?php endif; ?>
+            </div>
+
+            <?php if (!empty($child_html)) : ?>
+                <div x-show="isOpen" x-collapse>
+                    <?= $child_html ?>
+                </div>
+            <?php endif; ?>
+        </li>
+        <?php
+
+        if ($is_current_active || $child_active) {
+            $branch_active = true;
+        }
+    }
+    echo '</ul>';
+
+    return $branch_active;
+}
+
 /**
  * Include template functions
  */
