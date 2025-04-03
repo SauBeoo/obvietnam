@@ -150,7 +150,7 @@ function obvietnam_custom_scripts() {
 	wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap', array(), null );
 	
 	// Font Awesome
-	wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css', array(), '5.15.4' );
+	wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', array(), '6.4.0' );
 	
 	// Custom CSS
 	wp_enqueue_style( 'obvietnam-custom-responsive', get_template_directory_uri() . '/css/responsive.css', array('obvietnam-custom-style'), _S_VERSION );
@@ -412,20 +412,20 @@ function obvietnam_custom_register_post_types() {
     );
 
     $category_args = array(
-        'labels'             => $category_labels,
-        'public'             => true,
-        'publicly_queryable' => true,
-        'show_ui'            => true,
-        'show_in_menu'       => true,
-        'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'danh-muc' ),
-        'capability_type'    => 'post',
-        'has_archive'        => true,
-        'hierarchical'       => false,
-        'menu_position'      => 25,
-        'menu_icon'          => 'dashicons-cart',
-        'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields' ),
-        'show_in_rest'       => true,
+		'labels'             => $category_labels,
+		'public'             => true,
+		'publicly_queryable' => false,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'loi-ich' ),
+		'capability_type'    => 'post',
+		'has_archive'        => false,
+		'hierarchical'       => false,
+		'menu_position'      => 25,
+		'menu_icon'          => 'dashicons-category',
+		'supports'           => array( 'title', 'editor', 'custom-fields' ),
+		'show_in_rest'       => true,
     );
 
     register_post_type( 'category', $category_args );
@@ -485,6 +485,15 @@ function obvietnam_custom_add_meta_boxes() {
         'side',
         'default'
     );
+	// Category Icon
+	add_meta_box(
+		'category_icon_meta_box',
+		__( 'Icon danh mục', 'obvietnam-custom' ),
+		'obvietnam_custom_category_icon_meta_box_callback',
+		'category',
+		'side',
+		'default'
+	);
 }
 add_action( 'add_meta_boxes', 'obvietnam_custom_add_meta_boxes' );
 
@@ -856,6 +865,48 @@ function display_category_tree($parent_id = 0, $taxonomy = 'product_category', $
     return $branch_active;
 }
 
+function obvietnam_custom_category_icon_meta_box_callback($post) {
+	wp_nonce_field('obvietnam_custom_category_icon_meta_box', 'obvietnam_custom_category_icon_meta_box_nonce');
+	
+	$icon_class = get_post_meta($post->ID, '_category_icon', true);
+	$bg_class = get_post_meta($post->ID, '_category_icon_bg', true);
+	
+	echo '<p>' . __('Nhập class của icon FontAwesome (ví dụ: fa-truck, fa-warehouse)', 'obvietnam-custom') . '</p>';
+	echo '<input type="text" id="obvietnam_custom_category_icon" name="obvietnam_custom_category_icon" value="' . esc_attr($icon_class) . '" style="width:100%">';
+	echo '<p><a href="https://fontawesome.com/icons?d=gallery&s=solid&m=free" target="_blank">' . __('Xem danh sách icon', 'obvietnam-custom') . '</a></p>';
+	echo '<p>' . __('Class background Tailwind (ví dụ: bg-blue-500 p-2 rounded-full)', 'obvietnam-custom') . '</p>';
+	echo '<input type="text" name="obvietnam_custom_category_icon_bg" value="' . esc_attr($bg_class) . '" style="width:100%">';
+
+	echo '<p><a href="https://tailwindcss.com/docs/background-color" target="_blank">Tra cứu màu background Tailwind</a></p>';
+}
+function obvietnam_save_category_icon_meta($post_id) {
+	if (!isset($_POST['obvietnam_custom_category_icon_meta_box_nonce']) ||
+		!wp_verify_nonce($_POST['obvietnam_custom_category_icon_meta_box_nonce'], 'obvietnam_custom_category_icon_meta_box')) {
+		return;
+	}
+
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+	if (!current_user_can('edit_post', $post_id)) return;
+
+	// Save icon
+	if (isset($_POST['obvietnam_custom_category_icon'])) {
+		update_post_meta(
+			$post_id,
+			'_category_icon',
+			sanitize_text_field($_POST['obvietnam_custom_category_icon'])
+		);
+	}
+
+	// Save background
+	if (isset($_POST['obvietnam_custom_category_icon_bg'])) {
+		update_post_meta(
+			$post_id,
+			'_category_icon_bg',
+			sanitize_text_field($_POST['obvietnam_custom_category_icon_bg'])
+		);
+	}
+}
+add_action('save_post_category', 'obvietnam_save_category_icon_meta'); // Thay 'category' bằng slug post type
 /**
  * Include template functions
  */
