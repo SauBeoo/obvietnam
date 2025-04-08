@@ -174,262 +174,161 @@ add_action( 'wp_enqueue_scripts', 'obvietnam_custom_scripts' );
  */
 function obvietnam_custom_register_post_types() {
     // Services Post Type
-    $services_labels = array(
-        'name'                  => _x( 'Dịch vụ', 'Post type general name', 'obvietnam-custom' ),
-        'singular_name'         => _x( 'Dịch vụ', 'Post type singular name', 'obvietnam-custom' ),
-        'menu_name'             => _x( 'Dịch vụ', 'Admin Menu text', 'obvietnam-custom' ),
-        'name_admin_bar'        => _x( 'Dịch vụ', 'Add New on Toolbar', 'obvietnam-custom' ),
-        'add_new'               => __( 'Thêm mới', 'obvietnam-custom' ),
-        'add_new_item'          => __( 'Thêm dịch vụ mới', 'obvietnam-custom' ),
-        'new_item'              => __( 'Dịch vụ mới', 'obvietnam-custom' ),
-        'edit_item'             => __( 'Sửa dịch vụ', 'obvietnam-custom' ),
-        'view_item'             => __( 'Xem dịch vụ', 'obvietnam-custom' ),
-        'all_items'             => __( 'Tất cả dịch vụ', 'obvietnam-custom' ),
-        'search_items'          => __( 'Tìm dịch vụ', 'obvietnam-custom' ),
-        'parent_item_colon'     => __( 'Dịch vụ cha:', 'obvietnam-custom' ),
-        'not_found'             => __( 'Không tìm thấy dịch vụ.', 'obvietnam-custom' ),
-        'not_found_in_trash'    => __( 'Không tìm thấy dịch vụ trong thùng rác.', 'obvietnam-custom' ),
-        'featured_image'        => __( 'Hình ảnh dịch vụ', 'obvietnam-custom' ),
-        'set_featured_image'    => __( 'Đặt hình ảnh dịch vụ', 'obvietnam-custom' ),
-        'remove_featured_image' => __( 'Xóa hình ảnh dịch vụ', 'obvietnam-custom' ),
-        'use_featured_image'    => __( 'Sử dụng làm hình ảnh dịch vụ', 'obvietnam-custom' ),
-        'archives'              => __( 'Lưu trữ dịch vụ', 'obvietnam-custom' ),
-        'insert_into_item'      => __( 'Chèn vào dịch vụ', 'obvietnam-custom' ),
-        'uploaded_to_this_item' => __( 'Đã tải lên dịch vụ này', 'obvietnam-custom' ),
-        'filter_items_list'     => __( 'Lọc danh sách dịch vụ', 'obvietnam-custom' ),
-        'items_list_navigation' => __( 'Điều hướng danh sách dịch vụ', 'obvietnam-custom' ),
-        'items_list'            => __( 'Danh sách dịch vụ', 'obvietnam-custom' ),
-    );
+    // Helper function to create post type labels
+    function obvietnam_create_post_type_labels($singular, $plural, $text_domain = 'obvietnam-custom') {
+        return array(
+            'name'                  => _x( $plural, 'Post type general name', $text_domain ),
+            'singular_name'         => _x( $singular, 'Post type singular name', $text_domain ),
+            'menu_name'             => _x( $plural, 'Admin Menu text', $text_domain ),
+            'name_admin_bar'        => _x( $singular, 'Add New on Toolbar', $text_domain ),
+            'add_new'               => __( 'Thêm mới', $text_domain ),
+            'add_new_item'          => __( "Thêm {$singular} mới", $text_domain ),
+            'new_item'              => __( "{$singular} mới", $text_domain ),
+            'edit_item'             => __( "Sửa {$singular}", $text_domain ),
+            'view_item'             => __( "Xem {$singular}", $text_domain ),
+            'all_items'             => __( "Tất cả {$plural}", $text_domain ),
+            'search_items'          => __( "Tìm {$singular}", $text_domain ),
+            'parent_item_colon'     => isset($parent) ? __( "{$singular} cha:", $text_domain ) : null,
+            'not_found'             => __( "Không tìm thấy {$singular}.", $text_domain ),
+            'not_found_in_trash'    => __( "Không tìm thấy {$singular} trong thùng rác.", $text_domain ),
+            'featured_image'        => __( "Hình ảnh {$singular}", $text_domain ),
+            'set_featured_image'    => __( "Đặt hình ảnh {$singular}", $text_domain ),
+            'remove_featured_image' => __( "Xóa hình ảnh {$singular}", $text_domain ),
+            'use_featured_image'    => __( "Sử dụng làm hình ảnh {$singular}", $text_domain ),
+            'archives'              => __( "Lưu trữ {$singular}", $text_domain ),
+            'insert_into_item'      => __( "Chèn vào {$singular}", $text_domain ),
+            'uploaded_to_this_item' => __( "Đã tải lên {$singular} này", $text_domain ),
+            'filter_items_list'     => __( "Lọc danh sách {$plural}", $text_domain ),
+            'items_list_navigation' => __( "Điều hướng danh sách {$plural}", $text_domain ),
+            'items_list'            => __( "Danh sách {$plural}", $text_domain ),
+        );
+    }
 
-    $services_args = array(
-        'labels'             => $services_labels,
-        'public'             => true,
-        'publicly_queryable' => true,
-        'show_ui'            => true,
-        'show_in_menu'       => true,
-        'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'dich-vu' ),
-        'capability_type'    => 'post',
-        'has_archive'        => true,
-        'hierarchical'       => false,
-        'menu_position'      => 20,
-        'menu_icon'          => 'dashicons-cart',
-        'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields' ),
-        'show_in_rest'       => true,
-    );
-
-    register_post_type( 'services', $services_args );
-
-    // Products Post Type
-    $products_labels = array(
-        'name'                  => _x( 'Sản phẩm', 'Post type general name', 'obvietnam-custom' ),
-        'singular_name'         => _x( 'Sản phẩm', 'Post type singular name', 'obvietnam-custom' ),
-        'menu_name'             => _x( 'Sản phẩm', 'Admin Menu text', 'obvietnam-custom' ),
-        'name_admin_bar'        => _x( 'Sản phẩm', 'Add New on Toolbar', 'obvietnam-custom' ),
-        'add_new'               => __( 'Thêm mới', 'obvietnam-custom' ),
-        'add_new_item'          => __( 'Thêm sản phẩm mới', 'obvietnam-custom' ),
-        'new_item'              => __( 'Sản phẩm mới', 'obvietnam-custom' ),
-        'edit_item'             => __( 'Sửa sản phẩm', 'obvietnam-custom' ),
-        'view_item'             => __( 'Xem sản phẩm', 'obvietnam-custom' ),
-        'all_items'             => __( 'Tất cả sản phẩm', 'obvietnam-custom' ),
-        'search_items'          => __( 'Tìm sản phẩm', 'obvietnam-custom' ),
-        'parent_item_colon'     => __( 'Sản phẩm cha:', 'obvietnam-custom' ),
-        'not_found'             => __( 'Không tìm thấy sản phẩm.', 'obvietnam-custom' ),
-        'not_found_in_trash'    => __( 'Không tìm thấy sản phẩm trong thùng rác.', 'obvietnam-custom' ),
-        'featured_image'        => __( 'Hình ảnh sản phẩm', 'obvietnam-custom' ),
-        'set_featured_image'    => __( 'Đặt hình ảnh sản phẩm', 'obvietnam-custom' ),
-        'remove_featured_image' => __( 'Xóa hình ảnh sản phẩm', 'obvietnam-custom' ),
-        'use_featured_image'    => __( 'Sử dụng làm hình ảnh sản phẩm', 'obvietnam-custom' ),
-        'archives'              => __( 'Lưu trữ sản phẩm', 'obvietnam-custom' ),
-        'insert_into_item'      => __( 'Chèn vào sản phẩm', 'obvietnam-custom' ),
-        'uploaded_to_this_item' => __( 'Đã tải lên sản phẩm này', 'obvietnam-custom' ),
-        'filter_items_list'     => __( 'Lọc danh sách sản phẩm', 'obvietnam-custom' ),
-        'items_list_navigation' => __( 'Điều hướng danh sách sản phẩm', 'obvietnam-custom' ),
-        'items_list'            => __( 'Danh sách sản phẩm', 'obvietnam-custom' ),
-    );
-
-    $products_args = array(
-        'labels'             => $products_labels,
-        'public'             => true,
-        'publicly_queryable' => true,
-        'show_ui'            => true,
-        'show_in_menu'       => true,
-        'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'san-pham' ),
-        'capability_type'    => 'post',
-        'has_archive'        => true,
-        'hierarchical'       => false,
-        'menu_position'      => 21,
-        'menu_icon'          => 'dashicons-products',
-        'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields' ),
-        'show_in_rest'       => true,
-    );
-
-    register_post_type( 'products', $products_args );
-
-    // Clients Post Type
-    $clients_labels = array(
-        'name'                  => _x( 'Khách hàng', 'Post type general name', 'obvietnam-custom' ),
-        'singular_name'         => _x( 'Khách hàng', 'Post type singular name', 'obvietnam-custom' ),
-        'menu_name'             => _x( 'Khách hàng', 'Admin Menu text', 'obvietnam-custom' ),
-        'name_admin_bar'        => _x( 'Khách hàng', 'Add New on Toolbar', 'obvietnam-custom' ),
-        'add_new'               => __( 'Thêm mới', 'obvietnam-custom' ),
-        'add_new_item'          => __( 'Thêm khách hàng mới', 'obvietnam-custom' ),
-        'new_item'              => __( 'Khách hàng mới', 'obvietnam-custom' ),
-        'edit_item'             => __( 'Sửa khách hàng', 'obvietnam-custom' ),
-        'view_item'             => __( 'Xem khách hàng', 'obvietnam-custom' ),
-        'all_items'             => __( 'Tất cả khách hàng', 'obvietnam-custom' ),
-        'search_items'          => __( 'Tìm khách hàng', 'obvietnam-custom' ),
-        'not_found'             => __( 'Không tìm thấy khách hàng.', 'obvietnam-custom' ),
-        'not_found_in_trash'    => __( 'Không tìm thấy khách hàng trong thùng rác.', 'obvietnam-custom' ),
-        'featured_image'        => __( 'Logo khách hàng', 'obvietnam-custom' ),
-        'set_featured_image'    => __( 'Đặt logo khách hàng', 'obvietnam-custom' ),
-        'remove_featured_image' => __( 'Xóa logo khách hàng', 'obvietnam-custom' ),
-        'use_featured_image'    => __( 'Sử dụng làm logo khách hàng', 'obvietnam-custom' ),
-    );
-
-    $clients_args = array(
-        'labels'             => $clients_labels,
-        'public'             => true,
-        'publicly_queryable' => false,
-        'show_ui'            => true,
-        'show_in_menu'       => true,
-        'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'khach-hang' ),
-        'capability_type'    => 'post',
-        'has_archive'        => false,
-        'hierarchical'       => false,
-        'menu_position'      => 22,
-        'menu_icon'          => 'dashicons-businessperson',
-        'supports'           => array( 'title', 'thumbnail', 'custom-fields' ),
-        'show_in_rest'       => true,
-    );
-
-    register_post_type( 'clients', $clients_args );
-    
-    // Supply Chain Solutions Post Type
-    $solutions_labels = array(
-        'name'                  => _x( 'Giải pháp', 'Post type general name', 'obvietnam-custom' ),
-        'singular_name'         => _x( 'Giải pháp', 'Post type singular name', 'obvietnam-custom' ),
-        'menu_name'             => _x( 'Giải pháp', 'Admin Menu text', 'obvietnam-custom' ),
-        'name_admin_bar'        => _x( 'Giải pháp', 'Add New on Toolbar', 'obvietnam-custom' ),
-        'add_new'               => __( 'Thêm mới', 'obvietnam-custom' ),
-        'add_new_item'          => __( 'Thêm giải pháp mới', 'obvietnam-custom' ),
-        'new_item'              => __( 'Giải pháp mới', 'obvietnam-custom' ),
-        'edit_item'             => __( 'Sửa giải pháp', 'obvietnam-custom' ),
-        'view_item'             => __( 'Xem giải pháp', 'obvietnam-custom' ),
-        'all_items'             => __( 'Tất cả giải pháp', 'obvietnam-custom' ),
-        'search_items'          => __( 'Tìm giải pháp', 'obvietnam-custom' ),
-        'not_found'             => __( 'Không tìm thấy giải pháp.', 'obvietnam-custom' ),
-        'not_found_in_trash'    => __( 'Không tìm thấy giải pháp trong thùng rác.', 'obvietnam-custom' ),
-        'featured_image'        => __( 'Hình ảnh giải pháp', 'obvietnam-custom' ),
-        'set_featured_image'    => __( 'Đặt hình ảnh giải pháp', 'obvietnam-custom' ),
-        'remove_featured_image' => __( 'Xóa hình ảnh giải pháp', 'obvietnam-custom' ),
-        'use_featured_image'    => __( 'Sử dụng làm hình ảnh giải pháp', 'obvietnam-custom' ),
-    );
-
-    $solutions_args = array(
-        'labels'             => $solutions_labels,
-        'public'             => true,
-        'publicly_queryable' => true,
-        'show_ui'            => true,
-        'show_in_menu'       => true,
-        'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'giai-phap' ),
-        'capability_type'    => 'post',
-        'has_archive'        => true,
-        'hierarchical'       => false,
-        'menu_position'      => 23,
-        'menu_icon'          => 'dashicons-networking',
-        'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields' ),
-        'show_in_rest'       => true,
-    );
-
-    register_post_type( 'solutions', $solutions_args );
-    
-    // Benefits Post Type
-    $benefits_labels = array(
-        'name'                  => _x( 'Lợi ích', 'Post type general name', 'obvietnam-custom' ),
-        'singular_name'         => _x( 'Lợi ích', 'Post type singular name', 'obvietnam-custom' ),
-        'menu_name'             => _x( 'Lợi ích', 'Admin Menu text', 'obvietnam-custom' ),
-        'name_admin_bar'        => _x( 'Lợi ích', 'Add New on Toolbar', 'obvietnam-custom' ),
-        'add_new'               => __( 'Thêm mới', 'obvietnam-custom' ),
-        'add_new_item'          => __( 'Thêm lợi ích mới', 'obvietnam-custom' ),
-        'new_item'              => __( 'Lợi ích mới', 'obvietnam-custom' ),
-        'edit_item'             => __( 'Sửa lợi ích', 'obvietnam-custom' ),
-        'view_item'             => __( 'Xem lợi ích', 'obvietnam-custom' ),
-        'all_items'             => __( 'Tất cả lợi ích', 'obvietnam-custom' ),
-        'search_items'          => __( 'Tìm lợi ích', 'obvietnam-custom' ),
-        'not_found'             => __( 'Không tìm thấy lợi ích.', 'obvietnam-custom' ),
-        'not_found_in_trash'    => __( 'Không tìm thấy lợi ích trong thùng rác.', 'obvietnam-custom' ),
-    );
-
-    $benefits_args = array(
-        'labels'             => $benefits_labels,
-        'public'             => true,
-        'publicly_queryable' => false,
-        'show_ui'            => true,
-        'show_in_menu'       => true,
-        'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'loi-ich' ),
-        'capability_type'    => 'post',
-        'has_archive'        => false,
-        'hierarchical'       => false,
-        'menu_position'      => 24,
-        'menu_icon'          => 'dashicons-awards',
-        'supports'           => array( 'title', 'editor', 'custom-fields' ),
-        'show_in_rest'       => true,
-    );
-
-    register_post_type( 'benefits', $benefits_args );
+    /**
+     * Register a custom post type
+     * 
+     * @param string $post_type The post type key
+     * @param string $singular Singular name
+     * @param string $plural Plural name
+     * @param string $slug URL slug
+     * @param array $args Additional arguments
+     * @param array $label_overrides Override specific labels
+     */
+    function obvietnam_register_post_type($post_type, $singular, $plural, $slug, $args = array(), $label_overrides = array()) {
+        $labels = obvietnam_create_post_type_labels($singular, $plural);
+        
+        // Apply any label overrides
+        if (!empty($label_overrides)) {
+            $labels = array_merge($labels, $label_overrides);
+        }
+        
+        $defaults = array(
+            'labels'             => $labels,
+            'public'             => true,
+            'publicly_queryable' => true,
+            'show_ui'            => true,
+            'show_in_menu'       => true,
+            'query_var'          => true,
+            'rewrite'            => array('slug' => $slug),
+            'capability_type'    => 'post',
+            'has_archive'        => true,
+            'hierarchical'       => false,
+            'supports'           => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
+            'show_in_rest'       => true,
+        );
+        
+        $args = array_merge($defaults, $args);
+        register_post_type($post_type, $args);
+    }
 
     // Services Post Type
-    $category_labels = array(
-        'name'                  => _x( 'Danh mục', 'Post type general name', 'obvietnam-custom' ),
-        'singular_name'         => _x( 'Danh mục', 'Post type singular name', 'obvietnam-custom' ),
-        'menu_name'             => _x( 'Danh mục', 'Admin Menu text', 'obvietnam-custom' ),
-        'name_admin_bar'        => _x( 'Danh mục', 'Add New on Toolbar', 'obvietnam-custom' ),
-        'add_new'               => __( 'Thêm mới', 'obvietnam-custom' ),
-        'add_new_item'          => __( 'Thêm danh mục mới', 'obvietnam-custom' ),
-        'new_item'              => __( 'Danh mục mới', 'obvietnam-custom' ),
-        'edit_item'             => __( 'Sửa danh mục', 'obvietnam-custom' ),
-        'view_item'             => __( 'Xem danh mục', 'obvietnam-custom' ),
-        'all_items'             => __( 'Tất cả danh mục', 'obvietnam-custom' ),
-        'search_items'          => __( 'Tìm danh mục', 'obvietnam-custom' ),
-        'parent_item_colon'     => __( 'Danh mục cha:', 'obvietnam-custom' ),
-        'not_found'             => __( 'Không tìm thấy danh mục.', 'obvietnam-custom' ),
-        'not_found_in_trash'    => __( 'Không tìm thấy danh mục trong thùng rác.', 'obvietnam-custom' ),
-        'featured_image'        => __( 'Hình ảnh danh mục', 'obvietnam-custom' ),
-        'set_featured_image'    => __( 'Đặt hình ảnh danh mục', 'obvietnam-custom' ),
-        'remove_featured_image' => __( 'Xóa hình ảnh danh mục', 'obvietnam-custom' ),
-        'use_featured_image'    => __( 'Sử dụng làm hình ảnh danh mục', 'obvietnam-custom' ),
-        'archives'              => __( 'Lưu trữ danh mục', 'obvietnam-custom' ),
-        'insert_into_item'      => __( 'Chèn vào danh mục', 'obvietnam-custom' ),
-        'uploaded_to_this_item' => __( 'Đã tải lên danh mục này', 'obvietnam-custom' ),
-        'filter_items_list'     => __( 'Lọc danh danh mục vụ', 'obvietnam-custom' ),
-        'items_list_navigation' => __( 'Điều hướng danh sách danh mục', 'obvietnam-custom' ),
-        'items_list'            => __( 'Danh sách danh mục', 'obvietnam-custom' ),
+    obvietnam_register_post_type(
+        'services',
+        'Dịch vụ',
+        'Dịch vụ',
+        'dich-vu',
+        array(
+            'menu_position' => 20,
+            'menu_icon'     => 'dashicons-cart',
+        )
     );
 
-    $category_args = array(
-		'labels'             => $category_labels,
-		'public'             => true,
-		'publicly_queryable' => false,
-		'show_ui'            => true,
-		'show_in_menu'       => true,
-		'query_var'          => true,
-		'rewrite'            => array( 'slug' => 'loi-ich' ),
-		'capability_type'    => 'post',
-		'has_archive'        => false,
-		'hierarchical'       => false,
-		'menu_position'      => 25,
-		'menu_icon'          => 'dashicons-category',
-		'supports'           => array( 'title', 'editor', 'custom-fields' ),
-		'show_in_rest'       => true,
+    // Products Post Type
+    obvietnam_register_post_type(
+        'products',
+        'Sản phẩm',
+        'Sản phẩm',
+        'san-pham',
+        array(
+            'menu_position' => 21,
+            'menu_icon'     => 'dashicons-products',
+        )
     );
 
-    register_post_type( 'category', $category_args );
+    // Clients Post Type
+    obvietnam_register_post_type(
+        'clients',
+        'Khách hàng',
+        'Khách hàng',
+        'khach-hang',
+        array(
+            'publicly_queryable' => false,
+            'has_archive'        => false,
+            'menu_position'      => 22,
+            'menu_icon'          => 'dashicons-businessperson',
+            'supports'           => array('title', 'thumbnail', 'custom-fields'),
+        ),
+        array(
+            'featured_image'        => __('Logo khách hàng', 'obvietnam-custom'),
+            'set_featured_image'    => __('Đặt logo khách hàng', 'obvietnam-custom'),
+            'remove_featured_image' => __('Xóa logo khách hàng', 'obvietnam-custom'),
+            'use_featured_image'    => __('Sử dụng làm logo khách hàng', 'obvietnam-custom'),
+        )
+    );
+
+    // Supply Chain Solutions Post Type
+    obvietnam_register_post_type(
+        'solutions',
+        'Giải pháp',
+        'Giải pháp',
+        'giai-phap',
+        array(
+            'menu_position' => 23,
+            'menu_icon'     => 'dashicons-networking',
+        )
+    );
+    
+    // Benefits Post Type
+    obvietnam_register_post_type(
+        'benefits',
+        'Lợi ích',
+        'Lợi ích',
+        'loi-ich',
+        array(
+            'publicly_queryable' => false,
+            'has_archive'        => false,
+            'menu_position'      => 24,
+            'menu_icon'          => 'dashicons-awards',
+            'supports'           => array('title', 'editor', 'custom-fields'),
+        )
+    );
+
+    // Category Post Type
+    obvietnam_register_post_type(
+        'category',
+        'Danh mục',
+        'Danh mục',
+        'danh-muc',
+        array(
+            'publicly_queryable' => false,
+            'has_archive'        => false,
+            'menu_position'      => 25,
+            'menu_icon'          => 'dashicons-category',
+            'supports'           => array('title', 'editor', 'custom-fields'),
+        )
+    );
 }
+
 add_action( 'init', 'obvietnam_custom_register_post_types' );
 
 /**
@@ -592,8 +491,60 @@ function obvietnam_register_product_taxonomy() {
             'hierarchical' => true,
         )
     );
+
+	register_term_meta('product_category', 'icon_class', array(
+		'type' => 'string',
+		'description' => 'FontAwesome Icon Class',
+		'single' => true,
+		'show_in_rest' => true,
+	));
 }
 add_action( 'init', 'obvietnam_register_product_taxonomy' );
+
+
+// 2. Thêm trường nhập icon khi THÊM term mới
+function obvietnam_add_icon_class_field() {
+	?>
+	<div class="form-field term-icon-class-wrap">
+		<label for="product_category_icon_class"><?php _e('FontAwesome Icon Class'); ?></label>
+		<input type="text" name="product_category_icon_class" id="product_category_icon_class" value="">
+		<p class="description"><?php _e('Nhập class icon từ FontAwesome, ví dụ: fas fa-truck'); ?></p>
+	</div>
+	<?php
+}
+add_action('product_category_add_form_fields', 'obvietnam_add_icon_class_field');
+
+// 3. Thêm trường nhập icon khi SỬA term
+function obvietnam_edit_icon_class_field($term) {
+	$icon_class = get_term_meta($term->term_id, 'icon_class', true);
+	?>
+	<tr class="form-field term-icon-class-wrap">
+		<th scope="row">
+			<label for="product_category_icon_class"><?php _e('FontAwesome Icon Class'); ?></label>
+		</th>
+		<td>
+			<input type="text" name="product_category_icon_class" id="product_category_icon_class" value="<?php echo esc_attr($icon_class); ?>">
+			<p class="description"><?php _e('Nhập class icon từ FontAwesome, ví dụ: fas fa-truck'); ?></p>
+		</td>
+	</tr>
+	<?php
+}
+add_action('product_category_edit_form_fields', 'obvietnam_edit_icon_class_field');
+
+// 4. Lưu dữ liệu từ trường icon
+function obvietnam_save_icon_class($term_id) {
+	if (!isset($_POST['product_category_icon_class']) || !current_user_can('manage_categories')) {
+		return;
+	}
+
+	update_term_meta(
+		$term_id,
+		'icon_class',
+		sanitize_text_field($_POST['product_category_icon_class'])
+	);
+}
+add_action('created_product_category', 'obvietnam_save_icon_class');
+add_action('edited_product_category', 'obvietnam_save_icon_class');
 
 /**
  * Solution Icon Meta Box Callback
@@ -672,93 +623,125 @@ function obvietnam_custom_benefit_icon_meta_box_callback( $post ) {
 /**
  * Save meta box data
  */
-function obvietnam_custom_save_meta_box_data( $post_id ) {
-    // Service Icon
-    if ( isset( $_POST['obvietnam_custom_service_icon_meta_box_nonce'] ) ) {
-        if ( ! wp_verify_nonce( $_POST['obvietnam_custom_service_icon_meta_box_nonce'], 'obvietnam_custom_service_icon_meta_box' ) ) {
-            return;
+function obvietnam_custom_save_meta_box_data($post_id) {
+    // Define meta box configurations
+    $meta_boxes = array(
+        // Service Icon
+        array(
+            'nonce_name' => 'obvietnam_custom_service_icon_meta_box_nonce',
+            'nonce_action' => 'obvietnam_custom_service_icon_meta_box',
+            'fields' => array(
+                array(
+                    'post_field' => 'obvietnam_custom_service_icon',
+                    'meta_key' => '_service_icon'
+                )
+            )
+        ),
+        // Product Details
+        array(
+            'nonce_name' => 'obvietnam_custom_product_details_meta_box_nonce',
+            'nonce_action' => 'obvietnam_custom_product_details_meta_box',
+            'fields' => array(
+                array(
+                    'post_field' => 'obvietnam_custom_product_price',
+                    'meta_key' => '_product_price'
+                ),
+                array(
+                    'post_field' => 'obvietnam_custom_product_code',
+                    'meta_key' => '_product_code'
+                ),
+                array(
+                    'post_field' => 'obvietnam_custom_product_availability',
+                    'meta_key' => '_product_availability'
+                )
+            )
+        ),
+        // Solution Icon
+        array(
+            'nonce_name' => 'obvietnam_custom_solution_icon_meta_box_nonce',
+            'nonce_action' => 'obvietnam_custom_solution_icon_meta_box',
+            'fields' => array(
+                array(
+                    'post_field' => 'obvietnam_custom_solution_icon',
+                    'meta_key' => '_solution_icon'
+                )
+            )
+        ),
+        // Solution Features
+        array(
+            'nonce_name' => 'obvietnam_custom_solution_features_meta_box_nonce',
+            'nonce_action' => 'obvietnam_custom_solution_features_meta_box',
+            'fields' => array(
+                array(
+                    'post_field' => 'obvietnam_custom_solution_features',
+                    'meta_key' => '_solution_features',
+                    'is_array' => true
+                )
+            )
+        ),
+        // Benefit Icon
+        array(
+            'nonce_name' => 'obvietnam_custom_benefit_icon_meta_box_nonce',
+            'nonce_action' => 'obvietnam_custom_benefit_icon_meta_box',
+            'fields' => array(
+                array(
+                    'post_field' => 'obvietnam_custom_benefit_icon',
+                    'meta_key' => '_benefit_icon'
+                )
+            )
+        ),
+        // Category Icon
+        array(
+            'nonce_name' => 'obvietnam_custom_category_icon_meta_box_nonce',
+            'nonce_action' => 'obvietnam_custom_category_icon_meta_box',
+            'fields' => array(
+                array(
+                    'post_field' => 'obvietnam_custom_category_icon',
+                    'meta_key' => '_category_icon'
+                ),
+                array(
+                    'post_field' => 'obvietnam_custom_category_icon_bg',
+                    'meta_key' => '_category_icon_bg'
+                )
+            )
+        )
+    );
+
+    // Process each meta box
+    foreach ($meta_boxes as $meta_box) {
+        // Check if nonce exists and is valid
+        if (!isset($_POST[$meta_box['nonce_name']]) || 
+            !wp_verify_nonce($_POST[$meta_box['nonce_name']], $meta_box['nonce_action'])) {
+            continue;
         }
         
-        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-            return;
+        // Skip if doing autosave
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            continue;
         }
         
-        if ( isset( $_POST['obvietnam_custom_service_icon'] ) ) {
-            update_post_meta( $post_id, '_service_icon', sanitize_text_field( $_POST['obvietnam_custom_service_icon'] ) );
-        }
-    }
-    
-    // Product Details
-    if ( isset( $_POST['obvietnam_custom_product_details_meta_box_nonce'] ) ) {
-        if ( ! wp_verify_nonce( $_POST['obvietnam_custom_product_details_meta_box_nonce'], 'obvietnam_custom_product_details_meta_box' ) ) {
-            return;
+        // Check user permissions
+        if (!current_user_can('edit_post', $post_id)) {
+            continue;
         }
         
-        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-            return;
-        }
-        
-        if ( isset( $_POST['obvietnam_custom_product_price'] ) ) {
-            update_post_meta( $post_id, '_product_price', sanitize_text_field( $_POST['obvietnam_custom_product_price'] ) );
-        }
-        
-        if ( isset( $_POST['obvietnam_custom_product_code'] ) ) {
-            update_post_meta( $post_id, '_product_code', sanitize_text_field( $_POST['obvietnam_custom_product_code'] ) );
-        }
-        
-        if ( isset( $_POST['obvietnam_custom_product_availability'] ) ) {
-            update_post_meta( $post_id, '_product_availability', sanitize_text_field( $_POST['obvietnam_custom_product_availability'] ) );
-        }
-    }
-    
-    // Solution Icon
-    if ( isset( $_POST['obvietnam_custom_solution_icon_meta_box_nonce'] ) ) {
-        if ( ! wp_verify_nonce( $_POST['obvietnam_custom_solution_icon_meta_box_nonce'], 'obvietnam_custom_solution_icon_meta_box' ) ) {
-            return;
-        }
-        
-        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-            return;
-        }
-        
-        if ( isset( $_POST['obvietnam_custom_solution_icon'] ) ) {
-            update_post_meta( $post_id, '_solution_icon', sanitize_text_field( $_POST['obvietnam_custom_solution_icon'] ) );
-        }
-    }
-    
-    // Solution Features
-    if ( isset( $_POST['obvietnam_custom_solution_features_meta_box_nonce'] ) ) {
-        if ( ! wp_verify_nonce( $_POST['obvietnam_custom_solution_features_meta_box_nonce'], 'obvietnam_custom_solution_features_meta_box' ) ) {
-            return;
-        }
-        
-        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-            return;
-        }
-        
-        if ( isset( $_POST['obvietnam_custom_solution_features'] ) ) {
-            $features = array_map( 'sanitize_text_field', $_POST['obvietnam_custom_solution_features'] );
-            $features = array_filter( $features ); // Remove empty values
-            update_post_meta( $post_id, '_solution_features', $features );
-        }
-    }
-    
-    // Benefit Icon
-    if ( isset( $_POST['obvietnam_custom_benefit_icon_meta_box_nonce'] ) ) {
-        if ( ! wp_verify_nonce( $_POST['obvietnam_custom_benefit_icon_meta_box_nonce'], 'obvietnam_custom_benefit_icon_meta_box' ) ) {
-            return;
-        }
-        
-        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-            return;
-        }
-        
-        if ( isset( $_POST['obvietnam_custom_benefit_icon'] ) ) {
-            update_post_meta( $post_id, '_benefit_icon', sanitize_text_field( $_POST['obvietnam_custom_benefit_icon'] ) );
+        // Process each field in the meta box
+        foreach ($meta_box['fields'] as $field) {
+            if (isset($_POST[$field['post_field']])) {
+                if (isset($field['is_array']) && $field['is_array']) {
+                    // Handle array fields (like solution features)
+                    $values = array_map('sanitize_text_field', $_POST[$field['post_field']]);
+                    $values = array_filter($values); // Remove empty values
+                    update_post_meta($post_id, $field['meta_key'], $values);
+                } else {
+                    // Handle single value fields
+                    update_post_meta($post_id, $field['meta_key'], sanitize_text_field($_POST[$field['post_field']]));
+                }
+            }
         }
     }
 }
-add_action( 'save_post', 'obvietnam_custom_save_meta_box_data' );
+add_action('save_post', 'obvietnam_custom_save_meta_box_data');
 
 function inline_styles()
 {
@@ -786,84 +769,6 @@ function compress_css($css)
     return $css;
 }
 
-/**
- * Hàm hiển thị cây danh mục sản phẩm theo dạng đệ quy.
- *
- * @param int    $parent_id    ID của danh mục cha (mặc định là 0).
- * @param string $taxonomy     Tên taxonomy, ví dụ 'product_category'.
- * @param string $active_slug  Slug của danh mục đang được chọn (active).
- * @param int    $level        Mức độ lồng nhau (0 là cấp cao nhất).
- *
- * @return bool  Trả về true nếu trong nhánh này có danh mục đang active, false nếu không.
- */
-function display_category_tree($parent_id = 0, $taxonomy = 'product_category', $active_slug = '', $level = 0) {
-    $terms = get_terms([
-        'taxonomy'   => $taxonomy,
-        'hide_empty' => false,
-        'parent'     => $parent_id
-    ]);
-
-    if (empty($terms) || is_wp_error($terms)) {
-        return false;
-    }
-
-    // Nếu là danh mục con (level > 0) thì thụt vào 20px (ml-5)
-    $ul_class = 'space-y-1';
-    if ($level > 0) {
-        $ul_class .= ' ml-3';
-    }
-
-    $branch_active = false;
-
-    echo '<ul class="' . $ul_class . '">';
-    foreach ($terms as $term) {
-        // Kiểm tra nếu danh mục hiện tại đang active.
-        $is_current_active = ($active_slug === $term->slug);
-
-        // Gọi đệ quy để lấy danh mục con.
-        ob_start();
-        $child_active = display_category_tree($term->term_id, $taxonomy, $active_slug, $level + 1);
-        $child_html = ob_get_clean();
-
-        // Nếu danh mục hiện tại hoặc bất kỳ danh mục con nào đang active thì mặc định mở.
-        $is_open = ($is_current_active || $child_active) ? 'true' : 'false';
-
-        // Thiết lập class active cho danh mục hiện tại.
-        $active_class = $is_current_active ? 'bg-blue-100 text-blue-600' : 'text-gray-700 hover:bg-gray-50';
-        ?>
-        <li x-data="{ isOpen: <?= $is_open ?> }" class="relative">
-            <div class="flex items-center justify-between <?= $active_class ?> rounded-md px-3 py-2 transition-colors"  @click="isOpen = !isOpen">
-                <div>
-                    <a href="?product_category=<?= esc_attr($term->slug) ?>" class="flex-1" @click.stop>
-                        <?= esc_html($term->name) ?>
-                    </a>
-                </div>
-                <?php if (!empty($child_html)) : ?>
-                    <button class="p-1 hover:bg-gray-200 rounded-full ml-2">
-                        <svg class="w-4 h-4 transform transition-transform" :class="{ 'rotate-90': isOpen }"
-                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                        </svg>
-                    </button>
-                <?php endif; ?>
-            </div>
-
-            <?php if (!empty($child_html)) : ?>
-                <div x-show="isOpen" x-collapse>
-                    <?= $child_html ?>
-                </div>
-            <?php endif; ?>
-        </li>
-        <?php
-
-        if ($is_current_active || $child_active) {
-            $branch_active = true;
-        }
-    }
-    echo '</ul>';
-
-    return $branch_active;
-}
 
 function obvietnam_custom_category_icon_meta_box_callback($post) {
 	wp_nonce_field('obvietnam_custom_category_icon_meta_box', 'obvietnam_custom_category_icon_meta_box_nonce');
@@ -879,34 +784,34 @@ function obvietnam_custom_category_icon_meta_box_callback($post) {
 
 	echo '<p><a href="https://tailwindcss.com/docs/background-color" target="_blank">Tra cứu màu background Tailwind</a></p>';
 }
-function obvietnam_save_category_icon_meta($post_id) {
-	if (!isset($_POST['obvietnam_custom_category_icon_meta_box_nonce']) ||
-		!wp_verify_nonce($_POST['obvietnam_custom_category_icon_meta_box_nonce'], 'obvietnam_custom_category_icon_meta_box')) {
-		return;
-	}
 
-	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-	if (!current_user_can('edit_post', $post_id)) return;
+function modify_products_query($query)
+{
+	if (!is_admin() && $query->is_main_query() && is_post_type_archive('products')) {
+		// Số sản phẩm mỗi trang
+		$query->set('posts_per_page', 1);
 
-	// Save icon
-	if (isset($_POST['obvietnam_custom_category_icon'])) {
-		update_post_meta(
-			$post_id,
-			'_category_icon',
-			sanitize_text_field($_POST['obvietnam_custom_category_icon'])
-		);
-	}
+		// Tham số sắp xếp
+		$order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
+		$query->set('orderby', 'date');
+		$query->set('order', $order);
 
-	// Save background
-	if (isset($_POST['obvietnam_custom_category_icon_bg'])) {
-		update_post_meta(
-			$post_id,
-			'_category_icon_bg',
-			sanitize_text_field($_POST['obvietnam_custom_category_icon_bg'])
-		);
+		// Lọc theo danh mục
+		if (isset($_GET['product_category'])) {
+			$tax_query = array(
+				array(
+					'taxonomy' => 'product_category',
+					'field' => 'slug',
+					'terms' => sanitize_text_field($_GET['product_category'])
+				)
+			);
+			$query->set('tax_query', $tax_query);
+		}
 	}
 }
-add_action('save_post_category', 'obvietnam_save_category_icon_meta'); // Thay 'category' bằng slug post type
+
+add_action('pre_get_posts', 'modify_products_query');
+
 /**
  * Include template functions
  */
@@ -926,3 +831,5 @@ require get_template_directory() . '/inc/customizer.php';
  * Include responsive styles
  */
 require get_template_directory() . '/inc/responsive-include.php';
+
+require get_template_directory() . '/inc/category-functions.php';

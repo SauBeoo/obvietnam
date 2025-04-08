@@ -26,11 +26,12 @@ get_header();
             </header>
 
             <!-- Contact Content -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
                 <!-- Contact Information -->
-                <div class="lg:col-span-1">
+                <div>
                     <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-10 border border-gray-100">
                         <h2 class="text-2xl font-bold text-slate-800 mb-6 pb-2 border-b-2 border-blue-500">
+                            <i class="fas fa-info-circle text-blue-600 mr-2"></i>
                             <?php esc_html_e('Thông tin liên hệ', 'obvietnam-custom'); ?>
                         </h2>
 
@@ -60,11 +61,7 @@ get_header();
                                 ];
                             foreach ($values as $key => $value) : ?>
                                 <li class="flex items-start">
-                                    <?php if($key === 0):?>
-                                        <div class="w-15 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center mr-4">
-                                    <?php else :?>
-                                        <div class="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center mr-4">
-                                     <?php endif; ?>
+                                    <div class="bg-primary-50 p-2 rounded-lg mr-3">
                                     <i class="fas fa-<?php echo $value['icon']; ?> text-blue-600 text-lg"></i>
                                     </div>
                                     <div>
@@ -103,7 +100,7 @@ get_header();
                 </div>
 
                 <!-- Contact Form -->
-                <div class="lg:col-span-2">
+                <div class="">
                     <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-10 border border-gray-100">
                         <h2 class="text-2xl font-bold text-slate-800 mb-6 pb-2 border-b-2 border-blue-500">
                             <?php esc_html_e('Gửi tin nhắn cho chúng tôi', 'obvietnam-custom'); ?>
@@ -191,6 +188,7 @@ get_header();
             <!-- Google Map Section -->
             <div class="mt-12 lg:mt-16 mb-6">
                 <h2 class="text-2xl font-bold text-slate-800 mb-6 pb-2 border-b-2 border-blue-500">
+                    <i class="fas fa-map-marked-alt text-blue-500 mr-2"></i>
                     <?php esc_html_e('Bản đồ', 'obvietnam-custom'); ?>
                 </h2>
                 <div class="bg-gray-50 rounded-2xl shadow-xl h-96 border-2 border-dashed border-gray-200 overflow-hidden">

@@ -59,31 +59,49 @@
 						</form>
 					</div>
 				</nav><!-- #site-navigation -->
-				<button id="mobile-menu-toggle" class="mobile-menu-toggle">
-					<i class="fas fa-bars"></i>
+				
+				<!-- Mobile Menu Toggle -->
+				<button id="mobile-menu-toggle" class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
+					<i class="fas fa-bars text-xl text-gray-600"></i>
 				</button>
 			</div>
 		</div>
 
-		<div id="mobile-navigation" class="mobile-navigation" style="display: none;">
-			<div class="site-container">
-				<!-- Thêm form tìm kiếm mobile -->
-				<div class="mobile-search">
-					<?php get_search_form(); ?>
+		<!-- Phần Mobile Navigation sửa lại -->
+		<div id="mobile-navigation" class="lg:hidden fixed inset-y-0 right-0 w-full max-w-xs bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+			<div class="flex flex-col h-full">
+				<div class="flex justify-between items-center p-4 border-b">
+					<div class="text-lg font-semibold">Menu</div>
+					<button id="mobile-menu-close" class="p-2 hover:text-primary">
+						<i class="fas fa-times text-xl"></i>
+					</button>
 				</div>
-				<?php
-				wp_nav_menu(
-					array(
+
+				<div class="flex-1 overflow-y-auto p-4">
+					<div class="mobile-search mb-6">
+						<form role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+							<div class="relative">
+								<input type="search"
+									   class="w-full pl-4 pr-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+									   placeholder="<?php esc_attr_e('Tìm sản phẩm...', 'obvietnam-custom'); ?>"
+									   name="s" />
+								<button type="submit" class="absolute right-3 top-3 text-gray-400">
+									<i class="fas fa-search"></i>
+								</button>
+							</div>
+							<input type="hidden" name="post_type" value="product" />
+						</form>
+					</div>
+
+					<?php wp_nav_menu([
 						'theme_location' => 'main-menu',
-						'menu_id'        => 'mobile-menu',
-						'container'      => false,
-						'menu_class'     => 'mobile-menu',
-						'fallback_cb'    => false,
-					)
-				);
-				?>
+						'menu_class'     => 'space-y-2',
+						'container'      => false
+					]); ?>
+				</div>
 			</div>
 		</div>
+
 		<!-- Thêm overlay -->
-		<div class="mobile-menu-overlay"></div>
+		<div id="mobile-menu-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"></div>
 	</header><!-- #masthead -->
