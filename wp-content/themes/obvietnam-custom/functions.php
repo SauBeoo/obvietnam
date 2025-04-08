@@ -86,6 +86,93 @@ function obvietnam_custom_content_width() {
 }
 add_action( 'after_setup_theme', 'obvietnam_custom_content_width', 0 );
 
+// Đăng ký menu mobile
+function register_mobile_menu() {
+    register_nav_menus(array(
+        'mobile-menu' => __('Mobile Menu', 'text-domain')
+    ));
+}
+add_action('init', 'register_mobile_menu');
+
+class Mobile_Menu_Walker extends Walker_Nav_Menu {
+    public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        // Map icon và màu sắc
+        $icon_map = [
+            'trang-chu' => 'fa-home',
+            'san-pham' => 'fa-box-open',
+            'dich-vu' => 'fa-concierge-bell',
+            'gioi-thieu' => 'fa-info-circle',
+            'lien-he' => 'fa-envelope',
+            'trang-mau' => 'fa-file-alt'
+        ];
+
+        $slug = sanitize_title($item->title);
+        $icon = $icon_map[$slug] ?? 'fa-circle';
+
+        // Kiểm tra URL hiện tại
+        $current_url = home_url($_SERVER['REQUEST_URI']);
+        $is_active = untrailingslashit($current_url) === untrailingslashit($item->url);
+
+        // Class động
+        $link_class = $is_active
+            ? 'bg-primary bg-opacity-5 text-primary'
+            : 'hover:bg-gray-100 text-gray-700';
+
+        $output .= '<li class="nav-item">';
+        $output .= sprintf(
+            '<a href="%s" class="flex items-center px-4 py-3 rounded-lg font-medium %s">',
+            esc_url($item->url),
+            esc_attr($link_class)
+        );
+
+        // Icon container
+        $icon_bg = $is_active
+            ? 'bg-primary bg-opacity-10'
+            : 'bg-' . $this->get_color_class($slug) . '-100';
+
+        $output .= sprintf(
+            '<div class="w-8 h-8 rounded-full %s flex items-center justify-center mr-3">',
+            $icon_bg
+        );
+
+        // Icon
+        $icon_color = $is_active
+            ? 'text-primary'
+            : 'text-' . $this->get_color_class($slug) . '-500';
+
+        $output .= sprintf(
+            '<i class="fas %s %s"></i>',
+            $icon,
+            $icon_color
+        );
+        $output .= '</div>';
+
+        // Tiêu đề menu
+        $output .= '<span>' . $item->title . '</span>';
+
+        // Icon mũi tên
+        $output .= '<i class="fas fa-chevron-right ml-auto text-gray-400 text-sm"></i>';
+        $output .= '</a></li>';
+    }
+
+    private function get_color_class($slug) {
+        $color_map = [
+            'trang-chu' => 'primary',
+            'san-pham' => 'blue',
+            'dich-vu' => 'green',
+            'gioi-thieu' => 'purple',
+            'lien-he' => 'yellow',
+            'trang-mau' => 'red'
+        ];
+        return $color_map[$slug] ?? 'gray';
+    }
+}
+
+// Thêm file mobile-menu vào footer
+function add_mobile_menu() {
+    get_template_part('template-parts/content', 'mobile-menu');
+}
+add_action('wp_footer', 'add_mobile_menu');
 /**
  * Register widget area.
  */

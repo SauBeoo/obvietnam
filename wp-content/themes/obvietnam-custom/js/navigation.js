@@ -5,32 +5,40 @@
  */
 
 jQuery(document).ready(function($) {
-    const toggle = document.getElementById('mobile-menu-toggle');
-    const closeButton = document.getElementById('mobile-menu-close');
-    const mobileNav = document.getElementById('mobile-navigation');
-    const overlay = document.getElementById('mobile-menu-overlay');
-
     // Toggle mobile menu
-    function toggleMenu() {
-        mobileNav.classList.toggle('translate-x-full');
-        overlay.classList.toggle('hidden');
-        document.body.classList.toggle('overflow-hidden');
+    const mobileMenu = document.getElementById('mobile-navigation');
+    const overlay = document.getElementById('menu-overlay');
+    const openButton = document.getElementById('demo-open-menu');
+    const closeButton = document.getElementById('mobile-menu-close');
+
+    function openMenu() {
+        mobileMenu.classList.remove('menu-slide-out');
+        mobileMenu.classList.add('menu-slide-in');
+        mobileMenu.style.zIndex = '100';
+        overlay.classList.remove('menu-overlay-inactive');
+        overlay.classList.add('menu-overlay-active');
+        document.body.style.overflow = 'hidden';
+        mobileMenu.style.display  = 'block';
     }
 
-    // Mở/đóng menu
-    toggle.addEventListener('click', toggleMenu);
-    closeButton.addEventListener('click', toggleMenu);
-    overlay.addEventListener('click', toggleMenu);
+    function closeMenu() {
+        mobileMenu.classList.remove('menu-slide-in');
+        mobileMenu.classList.add('menu-slide-out');
+        mobileMenu.style.zIndex = '-1';
+        overlay.classList.remove('menu-overlay-active');
+        overlay.classList.add('menu-overlay-inactive');
+        document.body.style.overflow = 'auto';
+        mobileMenu.style.display  = 'none';
+    }
 
-    // Đóng menu khi click menu item
-    document.querySelectorAll('#mobile-navigation a').forEach(item => {
-        item.addEventListener('click', toggleMenu);
-    });
+    openButton.addEventListener('click', openMenu);
+    closeButton.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
 
-    // Xử lý phím ESC
-    document.addEventListener('keyup', (e) => {
-        if (e.key === 'Escape' && !mobileNav.classList.contains('translate-x-full')) {
-            toggleMenu();
+    // Close menu when pressing ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeMenu();
         }
     });
 
