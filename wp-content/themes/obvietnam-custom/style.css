@@ -16,7 +16,7 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
 
 :root {
     /*--site-blue: #f5a538;*/
-    --site-blue: #3b5de7;
+    --site-blue: rgba(13,76,143,1);
     --site-purple: #6610f2;
     --site-yellow: #f2f0e9;
     --site-orange: #f5a538;
@@ -84,7 +84,7 @@ img {
 
 /* Header */
 .site-header {
-    background-color: var(--site-white);
+    background-color: var(--site-blue);
     box-shadow: var(--site-shadow);
     position: sticky;
     top: 0;
@@ -145,16 +145,18 @@ img {
 .main-nav-item a {
     display: block;
     padding: 0.5rem 1rem;
-    color: var(--site-dark);
+    color: var(--site-white);
     font-weight: 500;
+    text-transform: uppercase;
+    width: max-content;
 }
 
 .main-nav-item a:hover {
-    color: var(--site-blue);
+    color: var(--site-green);
 }
 
 .main-nav-item.current-menu-item a {
-    color: var(--site-blue);
+    color: var(--site-orange);
 }
 
 .sub-menu {
@@ -1478,4 +1480,19 @@ a img.aligncenter {
 
 .menu-toggle:hover {
     transform: rotate(90deg);
+}
+/*Search*/
+/* Tùy chỉnh dropdown danh mục */
+select[name="product_cat"] {
+    @apply appearance-none bg-no-repeat pr-8;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-size: 1.5em 1.5em;
+}
+
+/* Ẩn number input arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

@@ -133,7 +133,8 @@ add_filter('wp_nav_menu_items', 'obvietnam_custom_footer_services_menu_items', 1
  */
 function obvietnam_custom_search_form( $form ) {
     $form = '<form role="search" method="get" class="search-form flex w-full" action="' . home_url( '/' ) . '">
-                <input type="search" class="w-full pl-4 pr-10 py-3 border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="' . esc_attr_x( 'Tìm kiếm...', 'placeholder', 'obvietnam-custom' ) . '" value="' . get_search_query() . '" name="s" />
+                <input type="search" class="w-full pl-4 pr-10 py-3 border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                 placeholder="' . esc_attr_x( 'Tìm kiếm...', 'placeholder', 'obvietnam-custom' ) . '" value="' . get_search_query() . '" name="s" />
                 <button type="submit" class="absolute right-3 top-3 text-gray-500 hover:text-primary">
                     <i class="fas fa-search"></i>
                 </button>

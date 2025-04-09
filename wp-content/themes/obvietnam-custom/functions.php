@@ -250,6 +250,11 @@ function obvietnam_custom_scripts() {
 	// Slider JS
 	wp_enqueue_script( 'obvietnam-custom-slider', get_template_directory_uri() . '/js/slider.js', array('jquery'), _S_VERSION, true );
 	
+	//Search 
+	wp_enqueue_script('obvietnam-search', get_template_directory_uri() . '/js/search.js', array(), '1.0', true);
+	wp_localize_script('obvietnam-search', 'obvietnam_ajax', array(
+		'ajax_url' => admin_url('admin-ajax.php')
+	));
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -920,3 +925,5 @@ require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/responsive-include.php';
 
 require get_template_directory() . '/inc/category-functions.php';
+
+require get_template_directory() . '/inc/product_search.php';
