@@ -73,7 +73,9 @@ img {
     max-width: 100%;
     height: auto;
 }
-
+.bg-pri{
+    background-color: var(--site-blue);
+}
 /* Container */
 .site-container {
     width: 100%;

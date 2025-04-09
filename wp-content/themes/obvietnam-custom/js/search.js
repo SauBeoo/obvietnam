@@ -26,10 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function fetchSuggestions(searchTerm) {
-        const category = document.querySelector('select[name="product_category"]') ? // Đổi selector
-            document.querySelector('select[name="product_category"]').value : '';
+        const category = document.querySelector('select[name="product_category"]')?.value || '';
 
-        fetch(`${obvietnam_ajax.ajax_url}?action=product_search&s=${encodeURIComponent(searchTerm)}&category=${category}`)
+        fetch(`${obvietnam_ajax.ajax_url}?action=product_search&s=${encodeURIComponent(searchTerm)}&category=${encodeURIComponent(category)}`)
 
         // Hiển thị loading
         suggestionsBox.innerHTML = `
