@@ -9,13 +9,7 @@ function product_search_callback() {
     $args = [
         'post_type' => 'products',
         'posts_per_page' => 8,
-        's' => $search_term,
-        'meta_query' => [
-            [
-                'key' => '_stock_status',
-                'value' => 'instock'
-            ]
-        ]
+        's' => $search_term
     ];
 
     if (!empty($_GET['category'])) {
