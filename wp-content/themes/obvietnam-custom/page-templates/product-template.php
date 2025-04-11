@@ -49,7 +49,7 @@ get_header();
             $paged = get_query_var('paged') ? get_query_var('paged') : 1;
             $args = [
                 'post_type' => 'products',
-                'posts_per_page' => 1,
+                'posts_per_page' => 2,
                 'paged' => $paged,
                 'orderby' => 'date',
                 'order' => $current_order,

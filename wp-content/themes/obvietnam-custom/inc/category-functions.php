@@ -21,6 +21,12 @@ function display_category_tree($parent_id = 0, $taxonomy = 'product_category', $
         return false;
     }
 
+    // Tự động chọn danh mục đầu tiên nếu chưa có danh mục active và là level gốc
+    if ($parent_id === 0 && $level === 0 && empty($active_slug)) {
+        $first_term = reset($terms);
+        $active_slug = $first_term->slug;
+    }
+
     $branch_active = false;
 
     echo '<ul class="space-y-2">';
@@ -35,7 +41,7 @@ function display_category_tree($parent_id = 0, $taxonomy = 'product_category', $
         $is_open = ($is_current_active || $child_active) ? 'true' : 'false';
         $active_class = $is_current_active ? 'bg-blue-100 text-blue-600' : 'text-gray-700 hover:bg-gray-50';
 
-        // Xác định icon dựa trên cấp độ (ví dụ)
+        // Xác định icon
         $icon = !empty($icon_class) ? $icon_class : 'fa-circle';
         $icon_color = 'text-gray-400';
         $icon_size = 'text-xs';
@@ -50,11 +56,8 @@ function display_category_tree($parent_id = 0, $taxonomy = 'product_category', $
                 break;
         }
 
-        // Xác định margin-left cho danh sách con
-        $ml_class = 'ml-8';
-        if ($level >= 1) {
-            $ml_class = 'ml-4';
-        }
+        // Margin-left cho danh sách con
+        $ml_class = $level >= 1 ? 'ml-4' : 'ml-8';
         ?>
         <li x-data="{ isOpen: <?= $is_open ?> }" class="relative">
             <div class="flex items-center justify-between <?= $active_class ?> rounded-lg px-3 py-2 transition-colors cursor-pointer category-item"
@@ -91,3 +94,4 @@ function display_category_tree($parent_id = 0, $taxonomy = 'product_category', $
 
     return $branch_active;
 }
+

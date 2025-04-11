@@ -122,13 +122,11 @@ get_header();
                                         <span><?php echo esc_html($warranty); ?></span>
                                     </div>
                                 <?php endif; ?>
-
-                                <?php if (get_theme_mod('free_shipping_threshold')) : ?>
+                                
                                     <div class="flex items-center text-sm text-gray-600 mt-2">
                                         <i class="fas fa-truck text-primary mr-2"></i>
-                                        <span>Miễn phí vận chuyển cho đơn hàng > <?php echo number_format(get_theme_mod('free_shipping_threshold')); ?>đ</span>
+                                        <span>Miễn phí vận chuyển cho đơn hàng > 5 triệu</span>
                                     </div>
-                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

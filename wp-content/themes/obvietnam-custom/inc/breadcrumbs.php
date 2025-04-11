@@ -1,7 +1,7 @@
 <?php
 function custom_breadcrumbs() {
     echo '<div class="mx-auto px-4 py-4 bg-gray-100" >';
-    echo '<nav class="mx-auto flex flex-wrap md:flex-nowrap gap-8 container" aria-label="Breadcrumb">';
+    echo '<nav class="mx-auto flex flex-wrap md:flex-nowrap gap-8 site-container" aria-label="Breadcrumb">';
     echo '<ol class="inline-flex items-center space-x-1 md:space-x-2 px-4">';
 
     // Trang chủ - Luôn hiển thị
@@ -28,6 +28,9 @@ function custom_breadcrumbs() {
         if (!empty($terms)) {
             $main_term = $terms[0];
 
+            // Lấy URL archive của post type 'products'
+            $base_url = get_post_type_archive_link('products');
+
             // Hiển thị parent terms
             if ($main_term->parent) {
                 $ancestors = get_ancestors($main_term->term_id, 'product_category');
@@ -35,25 +38,36 @@ function custom_breadcrumbs() {
 
                 foreach ($ancestors as $ancestor) {
                     $term = get_term($ancestor);
+                    // Tạo URL kết hợp post_type và taxonomy
+                    $term_url = add_query_arg(
+                        'product_category',
+                        $term->slug,
+                        $base_url
+                    );
                     echo '<li>';
                     echo '<div class="flex items-center">';
                     echo '<svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>';
-                    echo '<a href="' . get_term_link($term) . '" class="ml-2 text-sm font-medium text-gray-500 hover:text-blue-600">' . $term->name . '</a>';
+                    echo '<a href="' . esc_url($term_url) . '" class="ml-2 text-sm font-medium text-gray-500 hover:text-blue-600">' . $term->name . '</a>';
                     echo '</div>';
                     echo '</li>';
                 }
             }
 
             // Hiển thị main term
+            $main_term_url = add_query_arg(
+                'product_category',
+                $main_term->slug,
+                $base_url
+            );
             echo '<li>';
             echo '<div class="flex items-center">';
             echo '<svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>';
-            echo '<a href="' . get_term_link($main_term) . '" class="ml-2 text-sm font-medium text-gray-500 hover:text-blue-600">' . $main_term->name . '</a>';
+            echo '<a href="' . esc_url($main_term_url) . '" class="ml-2 text-sm font-medium text-gray-500 hover:text-blue-600">' . $main_term->name . '</a>';
             echo '</div>';
             echo '</li>';
         }
 
-        // Product hiện tại
+// Product hiện tại
         echo '<li aria-current="page">';
         echo '<div class="flex items-center">';
         echo '<svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>';
