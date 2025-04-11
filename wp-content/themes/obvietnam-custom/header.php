@@ -133,4 +133,6 @@
         <div id="menu-overlay" class="menu-overlay menu-overlay-inactive fixed inset-0 bg-black bg-opacity-50 z-10"></div>
 
     </header><!-- #masthead -->
-<?php custom_breadcrumbs(); ?>
+<?php if ( !is_front_page() && !is_home() ) : ?>
+    <?php custom_breadcrumbs(); ?>
+<?php endif; ?>

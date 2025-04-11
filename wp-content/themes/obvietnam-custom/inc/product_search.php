@@ -31,7 +31,7 @@ function product_search_callback() {
         ORDER BY
             (post_title LIKE %s) DESC, -- Ưu tiên tiêu đề BẮT ĐẦU bằng từ khóa
             post_title ASC             -- Sắp xếp thứ cấp theo Alphabet
-        LIMIT 8
+        LIMIT 6
         ",
         $like_pattern_anywhere, // Cho điều kiện WHERE
         $like_pattern_start    // Cho điều kiện ORDER BY (ưu tiên bắt đầu)

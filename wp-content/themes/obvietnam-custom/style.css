@@ -1498,3 +1498,28 @@ input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+/*single-product*/
+.product-feature {
+    @apply flex items-start mb-3;
+}
+
+.product-feature i {
+    @apply text-accent mt-1 mr-3 text-lg;
+}
+
+.zoom-effect {
+    transition: transform 0.3s ease;
+}
+
+.zoom-effect:hover {
+    transform: scale(1.03);
+}
+
+.shadow-hover {
+    transition: box-shadow 0.3s ease;
+}
+
+.shadow-hover:hover {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
