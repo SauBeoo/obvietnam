@@ -857,6 +857,12 @@ function modify_products_query($query)
 
 add_action('pre_get_posts', 'modify_products_query');
 
+function obvietnam_enqueue_slick() {
+	// Custom slider script
+	wp_enqueue_script( 'custom-slider', get_template_directory_uri() . '/js/custom-slider.js', array('jquery', 'slick-js'), '1.0.0', true );
+}
+add_action( 'wp_enqueue_scripts', 'obvietnam_enqueue_slick' );
+
 /**
  * Include template functions
  */
@@ -884,3 +890,5 @@ require get_template_directory() . '/inc/product_search.php';
 require get_template_directory() . '/inc/product-single-page.php';
 
 require get_template_directory() . '/inc/breadcrumbs.php';
+
+require get_template_directory() . '/inc/single.php';
