@@ -1,0 +1,62 @@
+/* Slider */
+
+.slick-list
+{
+    position: relative;
+
+    display: block;
+    overflow: hidden;
+
+    margin: 0;
+    padding: 0;
+}
+
+.slick-slide
+{
+    float: left;
+
+    height: 100%;
+}
+
+.slick-initialized .slick-slide {
+    display: block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.slick-list.draggable{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+
+.slick-track {
+    display: flex !important; /* Dùng flex để căn chỉnh chiều cao */
+    align-items: stretch; /* Kéo giãn các phần tử con */
+}
+
+/* Đảm bảo slide chiếm full chiều cao */
+.slick-slide {
+    height: auto !important; /* Ghi đè chiều cao từ slick */
+    margin: 0 10px; /* Giữ khoảng cách giữa các slide */
+}
+
+.slick-slide > div { /* Thẻ div bao ngoài news-card */
+    height: 100%;
+}
+
+/* Điều chỉnh news-card */
+.news-card {
+    height: 100%; /* Chiếm full chiều cao slide */
+    display: flex !important;
+    flex-direction: column;
+}
+
+/* Phần content chiếm không gian còn lại */
+.news-content {
+    flex: 1;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between; /* Đẩy phần link xuống dưới cùng */
+}
+

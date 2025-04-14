@@ -243,13 +243,22 @@ function obvietnam_custom_scripts() {
 	wp_enqueue_style( 'obvietnam-custom-responsive', get_template_directory_uri() . '/css/responsive.css', array('obvietnam-custom-style'), _S_VERSION );
 	
 	wp_enqueue_style( 'obvietnam-custom-mobile', get_template_directory_uri() . '/css/mobile.css', array('obvietnam-custom-mobile-style'), _S_VERSION );
-	
+
+    // Jquery JS
+    wp_enqueue_script( 'obvietnam-custom-jquery', get_template_directory_uri() . '/js/jquery-1.11.0.min.js', array('jquery'), _S_VERSION, true );
+
+    // Jquery Migrate JS
+    wp_enqueue_script( 'obvietnam-custom-jquery-migrate', get_template_directory_uri() . '/js/jquery-migrate-1.2.1.min.js', array('jquery'), _S_VERSION, true );
+
 	// Navigation JS
 	wp_enqueue_script( 'obvietnam-custom-navigation', get_template_directory_uri() . '/js/navigation.js', array('jquery'), _S_VERSION, true );
-	
+
+    // Slider Min JS
+    wp_enqueue_script( 'obvietnam-custom-slick', get_template_directory_uri() . '/js/slick.min.js', array('jquery'), _S_VERSION, true );
+
 	// Slider JS
 	wp_enqueue_script( 'obvietnam-custom-slider', get_template_directory_uri() . '/js/slider.js', array('jquery'), _S_VERSION, true );
-	
+
 	//Search 
 	wp_enqueue_script('obvietnam-search', get_template_directory_uri() . '/js/search.js', array(), '1.0', true);
 	wp_localize_script('obvietnam-search', 'obvietnam_ajax', array(
@@ -799,6 +808,7 @@ function inline_styles()
         $compressed_css_content = compress_css($styles_css_content);
         echo '<style id="global-styles-inline-css-' . $key . '"> ' . $compressed_css_content . '</style>';
     }
+    echo "<link rel='stylesheet' id='theme-style-slick' href='" . get_stylesheet_directory_uri() . '/css/slick.css?v=' . filemtime(get_stylesheet_directory() . '/css/slick.css') . "' type='text/css' media='all' />";
 }
 
 add_action('wp_head', 'inline_styles');
@@ -856,12 +866,6 @@ function modify_products_query($query)
 }
 
 add_action('pre_get_posts', 'modify_products_query');
-
-function obvietnam_enqueue_slick() {
-	// Custom slider script
-	wp_enqueue_script( 'custom-slider', get_template_directory_uri() . '/js/custom-slider.js', array('jquery', 'slick-js'), '1.0.0', true );
-}
-add_action( 'wp_enqueue_scripts', 'obvietnam_enqueue_slick' );
 
 /**
  * Include template functions

@@ -103,7 +103,7 @@
         <!-- View All Button -->
         <div class="text-center mt-16">
             <a href="<?php echo esc_url(get_post_type_archive_link('products')); ?>"
-               class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+               class="btn btn-primary contact-button">
                 <span><?php esc_html_e('Xem tất cả sản phẩm', 'obvietnam-custom'); ?></span>
                 <i class="fas fa-arrow-right ml-3"></i>
             </a>
