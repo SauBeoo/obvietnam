@@ -74,7 +74,7 @@ get_header();
 
             <!-- Sidebar -->
             <aside class="lg:w-1/3 sticky-sidebar">
-                <?php get_sidebar(); ?>
+                <?php get_sidebar('single-page'); ?>
             </aside>
         </div>
 
@@ -95,6 +95,8 @@ get_header();
                         <div class="bg-white rounded-lg shadow-md overflow-hidden news-card transition duration-300">
                             <?php if(has_post_thumbnail()) : ?>
                                 <img src="<?php the_post_thumbnail_url('medium'); ?>" alt="<?php the_title(); ?>" class="w-full h-48 object-cover">
+                            <?php else :?>
+                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/news-placeholder.png'); ?>"  class="w-full h-48 object-cover" alt="<?php the_title(); ?>">
                             <?php endif; ?>
                             <div class="p-4">
                                 <div class="flex items-center text-xs text-gray-500 mb-2">

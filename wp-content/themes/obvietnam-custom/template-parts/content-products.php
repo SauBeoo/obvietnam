@@ -20,7 +20,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         <?php
         $category_args = array(
-            'post_type' => 'category',
+            'post_type' => 'category-ob',
             'posts_per_page' => 5,
             'orderby' => 'date',
             'order' => 'DESC',
@@ -102,7 +102,7 @@
 
         <!-- View All Button -->
         <div class="text-center mt-16">
-            <a href="<?php echo esc_url(get_post_type_archive_link('products')); ?>"
+            <a href="<?php echo esc_url(get_permalink(get_page_by_path('danh-muc-san-pham'))); ?>"
                class="btn btn-primary contact-button">
                 <span><?php esc_html_e('Xem tất cả sản phẩm', 'obvietnam-custom'); ?></span>
                 <i class="fas fa-arrow-right ml-3"></i>

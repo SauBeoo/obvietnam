@@ -1600,3 +1600,10 @@ input[type="number"]::-webkit-outer-spin-button {
     color: var(--site-blue);
     font-size: 30px;
 }
+.category-active {
+    background-color: #3b82f6;
+    color: white;
+}
+.category-active:hover {
+    background-color: #2563eb;
+}

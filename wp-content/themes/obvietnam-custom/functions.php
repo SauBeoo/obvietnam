@@ -416,10 +416,10 @@ function obvietnam_custom_register_post_types() {
 
     // Category Post Type
     obvietnam_register_post_type(
-        'category',
-        'Danh mục',
-        'Danh mục',
-        'danh-muc',
+        'category-ob',
+        'Danh mục OB',
+        'Danh mục OB',
+        'danh-muc-ob',
         array(
             'publicly_queryable' => false,
             'has_archive'        => false,
@@ -490,7 +490,7 @@ function obvietnam_custom_add_meta_boxes() {
 		'category_icon_meta_box',
 		__( 'Icon danh mục', 'obvietnam-custom' ),
 		'obvietnam_custom_category_icon_meta_box_callback',
-		'category',
+		'category-ob',
 		'side',
 		'default'
 	);
@@ -867,6 +867,43 @@ function modify_products_query($query)
 
 add_action('pre_get_posts', 'modify_products_query');
 
+// Đăng ký sidebar
+function theme_sidebars() {
+	register_sidebar([
+		'name'          => 'News Sidebar',
+		'id'            => 'news-sidebar',
+		'before_widget' => '<div class="bg-white rounded-lg shadow p-5 mb-6">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">',
+		'after_title'   => '</h2>',
+	]);
+}
+add_action('widgets_init', 'theme_sidebars');
+
+//// Trong functions.php
+//function custom_news_query($query) {
+//	if ($query->is_main_query() && is_post_type_archive('post')) {
+//		$query->set('posts_per_page', 2);
+//		$query->set('orderby', 'date');
+//		$query->set('order', 'DESC');
+//	}
+//}
+//add_action('pre_get_posts', 'custom_news_query');
+
+// Thêm class active cho menu
+add_filter('nav_menu_css_class', function($classes, $item) {
+	if (is_page('tin-tuc') && $item->title === 'Tin tức') {
+		$classes[] = 'current-menu-item';
+	}
+	return $classes;
+}, 10, 2);
+
+// Log lỗi phân trang
+add_action('pre_get_posts', function($query) {
+	if ($query->is_main_query() && $query->is_category()) {
+		error_log('Category Query Args: ' . print_r($query->query_vars, true));
+	}
+});
 /**
  * Include template functions
  */

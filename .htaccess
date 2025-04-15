@@ -12,3 +12,5 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress
+
+# END WordPress
