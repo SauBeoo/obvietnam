@@ -13,8 +13,8 @@ get_header();
                 <article id="post-<?php the_ID(); ?>" <?php post_class('bg-white rounded-xl shadow-md overflow-hidden'); ?>>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-8">
                         <!-- Product Images Section -->
-                        <div class="p-4 md:p-6 bg-gray-50">
-                            <div class="relative rounded-lg overflow-hidden mb-4 shadow-hover">
+                        <div class="bg-gray-50">
+                            <div class="relative rounded-lg overflow-hidden shadow-hover">
                                 <?php if (has_post_thumbnail()) : ?>
                                     <?php the_post_thumbnail('large', [
                                         'class' => 'w-full h-auto object-cover rounded-lg zoom-effect',

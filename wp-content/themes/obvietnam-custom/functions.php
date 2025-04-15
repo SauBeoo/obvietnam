@@ -840,33 +840,6 @@ function obvietnam_custom_category_icon_meta_box_callback($post) {
 	echo '<p><a href="https://tailwindcss.com/docs/background-color" target="_blank">Tra cứu màu background Tailwind</a></p>';
 }
 
-function modify_products_query($query)
-{
-	if (!is_admin() && $query->is_main_query() && is_post_type_archive('products')) {
-		// Số sản phẩm mỗi trang
-		$query->set('posts_per_page', 1);
-
-		// Tham số sắp xếp
-		$order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
-		$query->set('orderby', 'date');
-		$query->set('order', $order);
-
-		// Lọc theo danh mục
-		if (isset($_GET['product_category'])) {
-			$tax_query = array(
-				array(
-					'taxonomy' => 'product_category',
-					'field' => 'slug',
-					'terms' => sanitize_text_field($_GET['product_category'])
-				)
-			);
-			$query->set('tax_query', $tax_query);
-		}
-	}
-}
-
-add_action('pre_get_posts', 'modify_products_query');
-
 // Đăng ký sidebar
 function theme_sidebars() {
 	register_sidebar([
@@ -880,15 +853,13 @@ function theme_sidebars() {
 }
 add_action('widgets_init', 'theme_sidebars');
 
-//// Trong functions.php
-//function custom_news_query($query) {
-//	if ($query->is_main_query() && is_post_type_archive('post')) {
-//		$query->set('posts_per_page', 2);
-//		$query->set('orderby', 'date');
-//		$query->set('order', 'DESC');
-//	}
-//}
-//add_action('pre_get_posts', 'custom_news_query');
+function adjust_category_query($query) {
+    if (!is_admin() && $query->is_main_query() && $query->is_category()) {
+        $query->set('posts_per_page', 8); // Số bài viết trên mỗi trang
+    }
+    return $query;
+}
+add_action('pre_get_posts', 'adjust_category_query');
 
 // Thêm class active cho menu
 add_filter('nav_menu_css_class', function($classes, $item) {

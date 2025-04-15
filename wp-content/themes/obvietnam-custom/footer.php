@@ -15,15 +15,10 @@
 						<?php dynamic_sidebar( 'footer-about' ); ?>
 					<?php else : ?>
 						<div class="footer-logo">
-							<?php
-							if ( has_custom_logo() ) :
-								the_custom_logo();
-							else :
-							?>
-								<h3 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h3>
-							<?php
-							endif;
-							?>
+                            <h3 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+                                    <img width="215" height="60" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo_footer.png'); ?>" class="custom-logo" alt="Ob Việt Nam" decoding="async">
+                                </a>
+                            </h3>
 						</div>
 						<div class="footer-about-text">
 							<?php echo esc_html( get_theme_mod( 'footer_about_text', 'OB Việt Nam Group là đơn vị cung cấp giải pháp cung ứng hàng hoá toàn diện, kết nối chuỗi cung ứng trên khắp toàn cầu với hơn 10 năm kinh nghiệm.' ) ); ?>
@@ -98,7 +93,7 @@
 								<i class="fas fa-map-marker-alt"></i>
 							</div>
 							<div class="footer-contact-text footer-contact-address">
-								<?php echo esc_html( get_theme_mod( 'contact_address', '123 Nguyễn Trãi, Thanh Xuân, Hà Nội' ) ); ?>
+								<?php echo esc_html( get_theme_mod( 'contact_address', 'Số 79, đường DT746, Tân Bình, Khánh Bình, Tân Uyên, Bình Dương' ) ); ?>
 							</div>
 						</div>
 						
@@ -107,7 +102,7 @@
 								<i class="fas fa-phone-alt"></i>
 							</div>
 							<div class="footer-contact-text footer-contact-phone">
-								<?php echo esc_html( get_theme_mod( 'contact_phone', '0987 654 321' ) ); ?>
+								<?php echo esc_html( get_theme_mod( 'contact_phone', '0912 599 079' ) ); ?>
 							</div>
 						</div>
 						
@@ -116,7 +111,7 @@
 								<i class="fas fa-envelope"></i>
 							</div>
 							<div class="footer-contact-text footer-contact-email">
-								<?php echo esc_html( get_theme_mod( 'contact_email', 'info@obvietnam.com' ) ); ?>
+								<?php echo esc_html( get_theme_mod( 'contact_email', 'sale01.bpbs@gmail.com' ) ); ?>
 							</div>
 						</div>
 						
@@ -143,12 +138,12 @@
 
 <?php if ( get_theme_mod( 'show_chat_buttons', true ) ) : ?>
 <div class="chat-buttons">
-	<?php if ( get_theme_mod( 'zalo_number', '0987654321' ) ) : ?>
-		<a href="https://zalo.me/<?php echo esc_attr( get_theme_mod( 'zalo_number', '0987654321' ) ); ?>" class="chat-button chat-zalo" target="_blank">
-			<i class="fab fa-facebook-messenger"></i>
-			<span class="chat-tooltip">Zalo: <?php echo esc_html( get_theme_mod( 'zalo_number', '0987654321' ) ); ?></span>
-		</a>
-	<?php endif; ?>
+    <?php if ( get_theme_mod( 'zalo_number', '0912599079' ) ) : ?>
+        <a href="https://zalo.me/<?php echo esc_attr( get_theme_mod( 'zalo_number', '0912599079' ) ); ?>" class="chat-button chat-zalo bg-white" target="_blank">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/zalo.png'); ?>" class="chat-icon" alt="Zalo">
+            <span class="chat-tooltip">Zalo: <?php echo esc_html( get_theme_mod( 'zalo_number', '0912599079' ) ); ?></span>
+        </a>
+    <?php endif; ?>
 	
 	<?php if ( get_theme_mod( 'facebook_messenger', 'https://messenger.com/t/obvietnam/' ) ) : ?>
 		<a href="<?php echo esc_url( get_theme_mod( 'facebook_messenger', 'https://messenger.com/t/obvietnam/' ) ); ?>" class="chat-button chat-messenger" target="_blank">

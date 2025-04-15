@@ -17,7 +17,7 @@
             <?php
             $clients_args = array(
                 'post_type' => 'clients',
-                'posts_per_page' => 18,
+                'posts_per_page' => 6,
                 'orderby' => 'menu_order',
                 'order' => 'ASC',
             );
@@ -38,7 +38,7 @@
                 wp_reset_postdata();
             else :
                 // Display placeholder clients if no clients are found
-                for ($i = 1; $i <= 18; $i++) :
+                for ($i = 1; $i <= 6; $i++) :
             ?>
                     <div class="client-item">
                         <div class="client-name"><?php echo sprintf(esc_html__('Client %d', 'obvietnam-custom'), $i); ?></div>

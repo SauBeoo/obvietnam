@@ -41,10 +41,6 @@
     margin: 0 10px; /* Giữ khoảng cách giữa các slide */
 }
 
-.slick-slide > div { /* Thẻ div bao ngoài news-card */
-    height: 100%;
-}
-
 /* Điều chỉnh news-card */
 .news-card {
     height: 100%; /* Chiếm full chiều cao slide */

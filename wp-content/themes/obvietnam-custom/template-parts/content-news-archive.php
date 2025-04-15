@@ -21,7 +21,6 @@
             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
         </h2>
         <p class="text-gray-600 mb-4"><?php echo wp_trim_words(get_the_excerpt(), 25); ?></p>
-        <p class="text-gray-600 mb-3"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
         <a href="<?php the_permalink(); ?>" class="text-primary font-medium read-more-btn inline-flex items-center">
             <?php esc_html_e('Đọc tiếp', 'obvietnam-custom'); ?> <i class="fas fa-arrow-right ml-2"></i>
         </a>

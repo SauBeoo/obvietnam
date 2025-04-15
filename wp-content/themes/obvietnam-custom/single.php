@@ -8,7 +8,7 @@
 get_header();
 ?>
 
-    <main class="container mx-auto px-4 py-8">
+    <main class="site-container mx-auto px-4 py-8">
         <div class="flex flex-col lg:flex-row gap-8">
             <!-- Main Article -->
             <article class="lg:w-2/3 bg-white rounded-lg shadow-md overflow-hidden">

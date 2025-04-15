@@ -27,7 +27,7 @@ if ($current_category instanceof WP_Term && $current_category->taxonomy === 'cat
 $all_posts = new WP_Query($args);
 ?>
 
-    <main class="container mx-auto px-4 py-8">
+    <main class="site-container mx-auto px-4 py-8">
         <div class="flex flex-col lg:flex-row gap-8">
             <!-- Main News List -->
             <div class="lg:w-2/3">

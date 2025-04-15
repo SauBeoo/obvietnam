@@ -11,7 +11,7 @@ get_header();
 ?>
 
     <main id="primary" class="site-main">
-        <div class="site-container py-12 lg:py-16">
+        <div class="site-container py-5 lg:py-5">
             <!-- Header Section -->
             <header class="page-header mb-12 text-center space-y-4 p-6">
                 <h1 class="text-4xl md:text-5xl font-bold text-slate-800 tracking-tight color-title">

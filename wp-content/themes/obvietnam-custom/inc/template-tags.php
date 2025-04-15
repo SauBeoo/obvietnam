@@ -310,9 +310,8 @@ function obvietnam_custom_footer_services_fallback() {
  */
 function obvietnam_custom_footer_links_fallback() {
     echo '<ul class="space-y-2">';
-    echo '<li><a href="#" class="footer-link">Giới thiệu</a></li>';
-    echo '<li><a href="#" class="footer-link">Tin tức & Sự kiện</a></li>';
-    echo '<li><a href="#" class="footer-link">Cơ hội nghề nghiệp</a></li>';
+    echo '<li><a href="/gioi-thieu" class="footer-link">Giới thiệu</a></li>';
+    echo '<li><a href="/tin-tuc" class="footer-link">Tin tức & Sự kiện</a></li>';
     echo '<li><a href="#" class="footer-link">Khách hàng tiêu biểu</a></li>';
     echo '<li><a href="#" class="footer-link">Đối tác chiến lược</a></li>';
     echo '<li><a href="#" class="footer-link">Chính sách bảo mật</a></li>';

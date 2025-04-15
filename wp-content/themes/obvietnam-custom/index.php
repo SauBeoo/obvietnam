@@ -43,6 +43,12 @@ get_header();
                                     <?php the_post_thumbnail('news-thumbnail', ['class' => 'w-full h-64 object-cover']); ?>
                                 </a>
                             </div>
+                        <?php else: ?>
+                            <div class="post-thumbnail">
+                                <a href="<?php the_permalink(); ?>">
+                                    <img class="w-full h-64 object-cover" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/news-placeholder.png'); ?>" alt="<?php the_title_attribute(); ?>">
+                                </a>
+                            </div>
                         <?php endif; ?>
                         
                         <div class="p-6">
@@ -67,7 +73,7 @@ get_header();
                             </div>
                             
                             <footer class="entry-footer mt-4">
-                                <a href="<?php the_permalink(); ?>" class="btn-primary inline-block">
+                                <a href="<?php the_permalink(); ?>" class="news-link">
                                     <?php esc_html_e( 'Xem thêm', 'obvietnam-custom' ); ?>
                                     <i class="fas fa-arrow-right ml-2"></i>
                                 </a>
@@ -82,8 +88,8 @@ get_header();
                 the_posts_pagination(
                     array(
                         'mid_size'  => 2,
-                        'prev_text' => '<i class="fas fa-chevron-left"></i> ' . esc_html__( 'Trước', 'obvietnam-custom' ),
-                        'next_text' => esc_html__( 'Sau', 'obvietnam-custom' ) . ' <i class="fas fa-chevron-right"></i>',
+                        'prev_text' => __('«'),
+                        'next_text' => __('»'),
                     )
                 );
                 ?>

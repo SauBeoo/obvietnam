@@ -1,43 +1,17 @@
-jQuery(document).ready(function ($) {
-    $('.slick-container').slick({
-        // autoplay: true,
-        // autoplaySpeed: 2000,
-        dots: true,
-        arrows: false,
-        infinite: true,
-        // speed: 500,
-        fade: true,
-        cssEase: 'linear',
-    });
+const scrollTopBtn = document.getElementById('scrollTop');
+const header = document.getElementById('header');
 
-    $('.slider').slick({
-        infinite: true,
-        prevArrow: $('.prev-btn'),
-        nextArrow: $('.next-btn'),
-        responsive: [
-            {
-                breakpoint: 4000,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                    arrows: true,
-                }
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    arrows: false,
-                }
-            },
-            {
-                breakpoint: 650,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('active');
+    } else {
+        scrollTopBtn.classList.remove('active');
+    }
+});
+
+scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
     });
 });

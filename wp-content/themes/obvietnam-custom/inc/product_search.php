@@ -79,5 +79,10 @@ function product_search_callback() {
     echo ob_get_clean(); // Lấy nội dung bộ đệm và xóa nó
     die(); // Kết thúc AJAX request
 }
-
+function obvietnam_search_filter($query) {
+    if ($query->is_search && !is_admin() && empty($_GET['s'])) {
+        $query->set('post_type', 'products');
+    }
+}
+add_action('pre_get_posts', 'obvietnam_search_filter');
 ?>

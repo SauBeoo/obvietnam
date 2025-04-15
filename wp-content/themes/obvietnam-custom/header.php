@@ -35,6 +35,11 @@
 </head>
 
 <body class="bg-gray-50">
+<!-- Scroll to top button -->
+<div id="scrollTop" class="scroll-top">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
 <?php wp_body_open(); ?>
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'obvietnam-custom' ); ?></a>
@@ -62,6 +67,7 @@
                     <!-- Search Form -->
                     <div class="w-full lg:max-w-2xl flex-grow">
                         <form class="flex w-full" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+                            <input type="hidden" name="post_type" value="products">
                             <div class="relative flex-grow">
                                 <div class="flex w-full">
                                     <!-- Category Dropdown -->
@@ -71,7 +77,7 @@
                                             'taxonomy'        => 'product_category',
                                             'name'            => 'product_category',
                                             'value_field'     => 'slug',
-                                            'class'           => 'appearance-none bg-gray-50 border border-r-0 border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500',
+                                            'class'           => 'appearance-none bg-gray-50 border border-r-0 border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-l-lg ',
                                             'hide_empty'      => 0,
                                             'hierarchical'    => true,
                                         ]); ?>
@@ -84,7 +90,7 @@
                                     <input
                                             id="header-search-input"
                                             type="search"
-                                            class="flex-grow px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 placeholder-gray-400"
+                                            class="flex-grow px-4 py-3 border border-gray-300 placeholder-gray-400"
                                             placeholder="<?php esc_attr_e('Tìm sản phẩm...', 'obvietnam-custom'); ?>"
                                             value="<?php echo get_search_query(); ?>"
                                             name="s"

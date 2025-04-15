@@ -78,7 +78,7 @@ get_header();
                                         <img class="w-full h-48 object-cover" src="<?= esc_url(get_the_post_thumbnail_url()) ?>" alt="<?php the_title(); ?>">
                                     <?php endif; ?>
                                 </div>
-                                <p class="text-base mb-2 text-gray-800 text-center"><?php the_title(); ?></p>
+                                <p class="text-base font-semibold mb-2 text-gray-800 text-center"><?php the_title(); ?></p>
                             </a>
                         </div>
                     <?php endwhile; ?>
