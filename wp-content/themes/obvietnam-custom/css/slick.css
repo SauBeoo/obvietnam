@@ -36,7 +36,7 @@
 }
 
 /* Đảm bảo slide chiếm full chiều cao */
-.slick-slide {
+.news-card.slick-slide {
     height: auto !important; /* Ghi đè chiều cao từ slick */
     margin: 0 10px; /* Giữ khoảng cách giữa các slide */
 }

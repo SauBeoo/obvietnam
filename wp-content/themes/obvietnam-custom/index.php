@@ -29,59 +29,38 @@ get_header();
                 }
                 ?>
             </header>
+        
+            <?php
+            /* Start the Loop */
+            while ( have_posts() ) :
+                the_post();
+                ?>
+                <article id="post-<?php the_ID(); ?>" <?php post_class('bg-white rounded-lg shadow-md overflow-hidden'); ?>>
+                    <div class="p-6">
+                        <div class="entry-content">
+                            <?php
+                            // Sửa ở đây: Kiểm tra nếu là single post thì hiển thị full content
+                            if (is_singular()) {
+                                the_content();
+                            } else {
+                                the_excerpt();
+                            }
+                            ?>
+                        </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <?php
-                /* Start the Loop */
-                while ( have_posts() ) :
-                    the_post();
-                    ?>
-                    <article id="post-<?php the_ID(); ?>" <?php post_class('bg-white rounded-lg shadow-md overflow-hidden'); ?>>
-                        <?php if ( has_post_thumbnail() ) : ?>
-                            <div class="post-thumbnail">
-                                <a href="<?php the_permalink(); ?>">
-                                    <?php the_post_thumbnail('news-thumbnail', ['class' => 'w-full h-64 object-cover']); ?>
-                                </a>
-                            </div>
-                        <?php else: ?>
-                            <div class="post-thumbnail">
-                                <a href="<?php the_permalink(); ?>">
-                                    <img class="w-full h-64 object-cover" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/news-placeholder.png'); ?>" alt="<?php the_title_attribute(); ?>">
-                                </a>
-                            </div>
-                        <?php endif; ?>
-                        
-                        <div class="p-6">
-                            <header class="entry-header mb-4">
-                                <?php the_title( '<h2 class="entry-title text-xl font-bold"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark" class="text-site-blue hover:text-site-blue-dark">', '</a></h2>' ); ?>
-                                
-                                <div class="entry-meta text-sm text-gray-600 mt-2">
-                                    <span class="posted-on">
-                                        <i class="far fa-calendar-alt mr-1"></i>
-                                        <?php echo get_the_date(); ?>
-                                    </span>
-                                    <span class="mx-2">|</span>
-                                    <span class="byline">
-                                        <i class="far fa-user mr-1"></i>
-                                        <?php the_author(); ?>
-                                    </span>
-                                </div>
-                            </header>
-
-                            <div class="entry-content">
-                                <?php the_excerpt(); ?>
-                            </div>
-                            
+                        <?php
+                        // Sửa ở đây: Ẩn nút "Xem thêm" khi ở single post
+                        if (!is_singular()) : ?>
                             <footer class="entry-footer mt-4">
                                 <a href="<?php the_permalink(); ?>" class="news-link">
-                                    <?php esc_html_e( 'Xem thêm', 'obvietnam-custom' ); ?>
+                                    <?php esc_html_e('Xem thêm', 'obvietnam-custom'); ?>
                                     <i class="fas fa-arrow-right ml-2"></i>
                                 </a>
                             </footer>
-                        </div>
-                    </article>
-                <?php endwhile; ?>
-            </div>
+                        <?php endif; ?>
+                    </div>
+                </article>
+            <?php endwhile; ?>
 
             <div class="pagination mt-8 flex justify-center">
                 <?php

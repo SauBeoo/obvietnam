@@ -29,10 +29,6 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
     }
-    
-    .clients-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
 }
 
 /* Tablets (768px to 991px) */
@@ -123,10 +119,6 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
         row-gap: 2rem;
-    }
-    
-    .clients-grid {
-        grid-template-columns: repeat(3, 1fr);
     }
     
     .benefits-grid {
@@ -261,13 +253,8 @@
         font-size: 0.9rem;
     }
     
-    .clients-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-    
     .client-item {
-        height: 80px;
+        height: 80px!important;
     }
     
     .benefits-grid {
@@ -444,13 +431,8 @@
         font-size: 0.8rem;
     }
     
-    .clients-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
-    }
-    
     .client-item {
-        height: 70px;
+        height: 70px!important;
         padding: 0.75rem;
     }
     

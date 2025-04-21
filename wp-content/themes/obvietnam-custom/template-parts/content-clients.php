@@ -13,11 +13,11 @@
             <?php esc_html_e('Chúng tôi tự hào được hợp tác với các doanh nghiệp hàng đầu trong nhiều lĩnh vực.', 'obvietnam-custom'); ?>
         </div>
 
-        <div class="clients-grid">
+        <div class="clients-grid autoplay">
             <?php
             $clients_args = array(
                 'post_type' => 'clients',
-                'posts_per_page' => 6,
+                'posts_per_page' => -1,
                 'orderby' => 'menu_order',
                 'order' => 'ASC',
             );

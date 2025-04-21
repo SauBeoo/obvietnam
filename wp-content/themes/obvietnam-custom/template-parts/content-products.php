@@ -21,7 +21,7 @@
         <?php
         $category_args = array(
             'post_type' => 'category-ob',
-            'posts_per_page' => 5,
+            'posts_per_page' => 6,
             'orderby' => 'date',
             'order' => 'DESC',
         );

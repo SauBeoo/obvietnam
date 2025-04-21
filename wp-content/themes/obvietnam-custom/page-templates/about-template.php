@@ -107,7 +107,98 @@ get_header();
                     <?php endforeach; ?>
                 </div>
             </section>
+            <!-- Team Section -->
+            <section class="section">
+                <h2 class="text-3xl lg:text-4xl font-bold text-center text-slate-800 mb-14 ">
+                    <span class="pb-2 color-title"><?php esc_html_e('Đội ngũ của chúng tôi', 'obvietnam-custom'); ?></span>
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 pt-6">
+                    <?php if (function_exists('get_field') && get_field('team_members')) :
+                        while (have_rows('team_members')) : the_row(); ?>
+                            <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                                <div class="relative h-50 bg-gray-100 overflow-hidden">
+                                    <?php if ($photo = get_sub_field('photo')) : ?>
+                                        <img src="<?php echo esc_url($photo); ?>" alt="<?php echo esc_attr(get_sub_field('name')); ?>"
+                                             class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105">
+                                    <?php else : ?>
+                                        <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+                                            <i class="fas fa-user text-5xl text-gray-400/80"></i>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+
+                                <div class="p-6 text-center space-y-3">
+                                    <h3 class="text-xl font-bold text-slate-800"><?php the_sub_field('name'); ?></h3>
+                                    <p class="color-title font-medium"><?php the_sub_field('position'); ?></p>
+                                    <?php if ($description = get_sub_field('description')) : ?>
+                                        <p class="text-sm text-gray-600"><?php echo esc_html($description); ?></p>
+                                    <?php endif; ?>
+
+                                    <?php if (have_rows('social_links')) : ?>
+                                        <div class="flex justify-center space-x-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            <?php while (have_rows('social_links')) : the_row();
+                                                $platform = get_sub_field('platform');
+                                                $url = get_sub_field('url');
+                                                if ($url) : ?>
+                                                    <a href="<?php echo esc_url($url); ?>"
+                                                       class="text-slate-600 hover:text-emerald-500 transition-colors px-2"
+                                                       target="_blank"
+                                                       aria-label="<?php echo esc_attr($platform); ?>">
+                                                        <i class="fab fa-<?php echo esc_attr($platform); ?> text-2xl"></i>
+                                                    </a>
+                                                <?php endif;
+                                            endwhile; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endwhile;
+                    else :
+                        $placeholder_members = array(
+                            array(
+                                'name' => 'Nguyễn Văn A',
+                                'position' => 'Giám đốc điều hành',
+                            ),
+                            array(
+                                'name' => 'Trần Thị B',
+                                'position' => 'Giám đốc vận hành',
+                            ),
+                            array(
+                                'name' => 'Lê Văn C',
+                                'position' => 'Trưởng phòng kinh doanh',
+                            ),
+                            array(
+                                'name' => 'Phạm Thị D',
+                                'position' => 'Trưởng phòng marketing',
+                            ),
+                        );
+                        foreach ($placeholder_members as $member) : ?>
+                            <div class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                                <div class="relative h-50 bg-gray-100 overflow-hidden">
+                                    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/news-placeholder.png'); ?>" alt=""
+                                         class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105">
+                                </div>
+
+
+                                <div class="p-4 text-center space-y-3">
+                                    <h3 class="text-xl font-bold text-slate-800"><?php echo esc_html($member['name']); ?></h3>
+                                    <p class="color-title font-medium "><?php echo esc_html($member['position']); ?></p>
+                                    <div class="flex justify-center space-x-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <?php foreach (['linkedin', 'twitter', 'facebook'] as $platform) : ?>
+                                            <a href="#" class="text-slate-600 hover:text-emerald-500 transition-colors px-2">
+                                                <i class="fab fa-<?php echo $platform; ?> text-2xl"></i>
+                                            </a>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach;
+                    endif; ?>
+                </div>
+            </section>
         </div>
+
         <?php
             // Stats Section
             get_template_part('template-parts/content', 'stats');

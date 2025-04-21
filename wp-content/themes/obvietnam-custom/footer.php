@@ -23,6 +23,32 @@
 						<div class="footer-about-text">
 							<?php echo esc_html( get_theme_mod( 'footer_about_text', 'OB Việt Nam Group là đơn vị cung cấp giải pháp cung ứng hàng hoá toàn diện, kết nối chuỗi cung ứng trên khắp toàn cầu với hơn 10 năm kinh nghiệm.' ) ); ?>
 						</div>
+						<div class="footer-contact-item">
+							<div class="footer-contact-icon">
+								<i class="fas fa-map-marker-alt"></i>
+							</div>
+							<div class="footer-contact-text footer-contact-address">
+								<?php echo esc_html( get_theme_mod( 'contact_address', 'Số 79, đường DT746, Tân Bình, Khánh Bình, Tân Uyên, Bình Dương' ) ); ?>
+							</div>
+						</div>
+
+						<div class="footer-contact-item">
+							<div class="footer-contact-icon">
+								<i class="fas fa-phone-alt"></i>
+							</div>
+							<div class="footer-contact-text footer-contact-phone">
+								02743.599.079 - 02743.599.078
+							</div>
+						</div>
+
+						<div class="footer-contact-item">
+							<div class="footer-contact-icon">
+								<i class="fas fa-envelope"></i>
+							</div>
+							<div class="footer-contact-text footer-contact-email">
+								<a href="mailto:sale.obvietnam@gmail.com"> sale.obvietnam@gmail.com</a> 
+							</div>
+						</div>
 						<div class="footer-social">
 							<?php if ( get_theme_mod( 'social_facebook', '#' ) ) : ?>
 								<a href="<?php echo esc_url( get_theme_mod( 'social_facebook', '#' ) ); ?>" class="footer-social-link" target="_blank">
@@ -59,7 +85,7 @@
 							'theme_location' => 'footer-links',
 							'menu_id'        => 'footer-links-menu',
 							'container'      => false,
-							'menu_class'     => 'footer-menu',
+							'menu_class'     => 'space-y-2',
 							'fallback_cb'    => 'obvietnam_custom_footer_links_fallback',
 							'depth'          => 1,
 						)
@@ -87,7 +113,15 @@
 					<?php if ( is_active_sidebar( 'footer-contact' ) ) : ?>
 						<?php dynamic_sidebar( 'footer-contact' ); ?>
 					<?php else : ?>
-						<h3 class="footer-heading"><?php esc_html_e( 'Liên hệ', 'obvietnam-custom' ); ?></h3>
+						<h3 class="footer-heading"><?php esc_html_e( 'Chi Nhánh', 'obvietnam-custom' ); ?></h3>
+						<div class="footer-contact-item">
+							<div class="footer-contact-icon">
+								<i class="fa-solid fa-building"></i>
+							</div>
+							<div class="footer-contact-text footer-contact-address">
+								CÔNG TY TNHH BEST PRICE BEST SERVICE
+							</div>
+						</div>
 						<div class="footer-contact-item">
 							<div class="footer-contact-icon">
 								<i class="fas fa-map-marker-alt"></i>
@@ -111,7 +145,8 @@
 								<i class="fas fa-envelope"></i>
 							</div>
 							<div class="footer-contact-text footer-contact-email">
-								<?php echo esc_html( get_theme_mod( 'contact_email', 'sale01.bpbs@gmail.com' ) ); ?>
+								<a href="mailto:<?php echo esc_html( get_theme_mod( 'contact_email', 'sale01.bpbs@gmail.com' ) ); ?>"> <?php echo esc_html( get_theme_mod( 'contact_email', 'sale01.bpbs@gmail.com' ) ); ?></a>
+								
 							</div>
 						</div>
 						
